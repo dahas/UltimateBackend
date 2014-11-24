@@ -14,5 +14,5 @@ use UltimateBackend\app\php\App;
 
 require_once('app/php/app.php');
 
-$App = new App("Ultimate Backend");
+$App = new App();
 $App->execute();

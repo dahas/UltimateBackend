@@ -9,15 +9,36 @@ class Template
 
     public function __construct($file = '')
     {
-        if (is_file($file))
-            $this->html = file_get_contents($file);
-        else
-            $this->html = Base::errorMessage("No valid template file!");
+        if ($file)
+            $this->loadFile($file);
     }
 
+    /**
+     * @param $file
+     * @return Template
+     */
     public static function load($file)
     {
         return new Template($file);
+    }
+
+    /**
+     * @param $html
+     * @return Template
+     */
+    public static function html($html)
+    {
+        $tmpl = new Template();
+        $tmpl->html = $html;
+        return $tmpl;
+    }
+
+    private function loadFile($file = '')
+    {
+        if (is_file($file))
+            $this->html = file_get_contents($file);
+        else
+            $this->html = Base::errorMessage("No valid template file: $file");
     }
 
     public function getSubpart($marker)
@@ -68,7 +89,7 @@ class Template
         return $html;
     }
 
-    public static function trimSubpart($html, $marker, $subpartContent, $recursive = 1)
+    private static function trimSubpart($html, $marker, $subpartContent, $recursive = 1)
     {
         $start = strpos($html, $marker);
         if ($start === false) {

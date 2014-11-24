@@ -6,6 +6,7 @@ namespace UltimateBackend\lib;
 class Base
 {
     private static $iniFile = "config.ini";
+    private static $bodyOnload = '';
 
     /**
      * @return array
@@ -25,13 +26,25 @@ class Base
         if (isset($_SERVER['QUERY_STRING'])) {
             $qs = $_SERVER['QUERY_STRING'];
             $vars = explode("&", $qs);
-            foreach($vars as $var) {
+            foreach ($vars as $var) {
                 $parts = explode("=", $var);
-                if(count($parts)==2)
+                if (count($parts) == 2)
                     $varArr[$parts[0]] = self::filterInput($parts[1]);
+                else
+                    $varArr[$parts[0]] = "";
             }
         }
         return $varArr;
+    }
+
+    public static function setBodyOnload($value)
+    {
+        self::$bodyOnload .= $value;
+    }
+
+    public static function getBodyOnload()
+    {
+        return self::$bodyOnload;
     }
 
     /**
@@ -49,7 +62,7 @@ class Base
      */
     public static function errorMessage($msg)
     {
-        return '<span class="error_message">'.$msg.'</span>';
+        return '<span class="error_message">' . $msg . '</span>';
     }
 
 }
