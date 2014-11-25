@@ -13,7 +13,6 @@ class Nested_Layout implements Module
 
     public $htmlFile = "modules/mod_nested_layout/template/nested_layout.html";
     public $additionalFiles = array();
-    public $html = '';
 
     public function __construct($props)
     {

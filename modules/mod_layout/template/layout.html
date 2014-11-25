@@ -1,10 +1,13 @@
+###MAIN_MENU###
 <script type="text/javascript">
 
     var BaseLayout;
+    var Menu;
     var AttachedTree;
 
-    function doOnLoad() {
-        /* Basic layout */
+    function doOnLoad()
+    {
+        /* Basic configuration */
 
         BaseLayout = new dhtmlXLayoutObject({
             parent: document.body,  // parent container
@@ -14,7 +17,12 @@
 
         BaseLayout.setOffsets({top: 10, right: 10, bottom: 10, left: 10});
 
-        /* Left column */
+        Menu = BaseLayout.attachMenu();
+        Menu.loadFromHTML("main_menu", true);
+        Menu.setSkin("dhx_terrace");
+        Menu.setIconsPath("resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/imgs/dhxtree_skyblue/");
+
+        /* Left pane */
 
         BaseLayout.cells("a").showHeader();
         BaseLayout.cells("a").setText("Structure");
@@ -27,30 +35,28 @@
         AttachedTree.enableTreeLines(true);
         AttachedTree.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/imgs/dhxtree_skyblue/");
 
-        AttachedTree.loadJSONObject(
-            ###A_TREE_DATA###,
-        function () {
-            BaseLayout.cells("a").progressOff();
-        }
-
-    )
-        ;
+        AttachedTree.loadJSON(
+                '###TREE_DATA_URL###',
+                function () {
+                    BaseLayout.cells("a").progressOff();
+                }
+        );
 
         AttachedTree.attachEvent("onSelect", function (id) {
             BaseLayout.cells("b").detachObject(true);
+            // Load Grid module into Pane B
             if (id == "1") {
-                BaseLayout.cells("b").attachGrid();
-                var AttachedObject = BaseLayout.cells("b").getAttachedObject();
-                initAttachedObject(AttachedObject);
+                BaseLayout.cells("b").progressOn();
+                BaseLayout.cells("b").attachURL("index.php?mod=grid");
             }
         });
 
-        /* Right top column */
+        /* Right top pane */
 
         BaseLayout.cells("b").showHeader();
         BaseLayout.cells("b").setText("Datalist");
 
-        /* Right bottom column */
+        /* Right bottom pane */
 
         BaseLayout.cells("c").showHeader();
         BaseLayout.cells("c").setText("Edit Data");
@@ -59,116 +65,6 @@
         });
         BaseLayout.cells("c").progressOn();
         BaseLayout.cells("c").attachURL("###C_ATTACH_URL###", false);
-    }
-
-    function initAttachedObject(Object) {
-        // Object is dhtmlxGrid
-        if (Object instanceof window.dhtmlXGridObject) {
-            var Grid = Object;
-            var data = {
-                rows: [
-                    { id: 1001,
-                        data: [
-                            "100",
-                            "A Time to Kill",
-                            "John Grisham",
-                            "12.99",
-                            "1",
-                            "05/01/1998"] },
-                    { id: 1002,
-                        data: [
-                            "1000",
-                            "Blood and Smoke",
-                            "Stephen King",
-                            "0",
-                            "1",
-                            "01/01/2000"] },
-                    { id: 1003,
-                        data: [
-                            "-200",
-                            "The Rainmaker",
-                            "John Grisham",
-                            "7.99",
-                            "0",
-                            "12/01/2001"] },
-                    { id: 1004,
-                        data: [
-                            "350",
-                            "The Green Mile",
-                            "Stephen King",
-                            "11.10",
-                            "1",
-                            "01/01/1992"] },
-                    { id: 1005,
-                        data: [
-                            "700",
-                            "Misery",
-                            "Stephen King",
-                            "7.70",
-                            "0",
-                            "01/01/2003"] },
-                    { id: 1006,
-                        data: [
-                            "-1200",
-                            "The Dark Half",
-                            "Stephen King",
-                            "0",
-                            "0",
-                            "10/30/1999"] },
-                    { id: 1007,
-                        data: [
-                            "1500",
-                            "The Partner",
-                            "John Grisham",
-                            "12.99",
-                            "1",
-                            "01/01/2005"] },
-                    { id: 1008,
-                        data: [
-                            "500",
-                            "It",
-                            "Stephen King",
-                            "9.70",
-                            "0",
-                            "10/15/2001"] },
-                    { id: 1009,
-                        data: [
-                            "400",
-                            "Cousin Bette",
-                            "Honore de Balzac",
-                            "0",
-                            "1",
-                            "12/01/1991"] },
-                    { id: 10010,
-                        data: [
-                            "400",
-                            "Cousin Bette",
-                            "Honore de Balzac",
-                            "0",
-                            "1",
-                            "12/01/1991"] },
-                    { id: 10910,
-                        data: [
-                            "400",
-                            "Cousin Bette",
-                            "Honore de Balzac",
-                            "0",
-                            "1",
-                            "12/01/1991"] }
-                ]
-            };
-            Grid.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxGrid/codebase/imgs/");
-            Grid.setHeader("Sales, Book Title, Author");
-            Grid.setInitWidths("70,250,*")
-            Grid.setColAlign("right,left,left")
-            Grid.setColTypes("dyn,ed,ed");
-            Grid.setColSorting("int,str,str")
-            Grid.init();
-            Grid.setSkin("dhx_terrace");
-            Grid.parse(data, "json");
-        }
-
-
     }
 
 </script>

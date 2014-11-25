@@ -10,7 +10,7 @@ interface Application
 {
     public function __construct();
 
-    public function render($html, $additionalFiles=array());
+    public function render($html);
 
     public function execute();
 }

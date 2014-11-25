@@ -17,15 +17,12 @@ use UltimateBackend\lib\Template;
 
 class App implements Application
 {
-    private $config = array();
-    private $properties = array();
     private $Template = null;
-    public $html = '';
 
     public function __construct()
     {
+        Base::construct();
         $this->Template = Template::load("app/template/app.html"); // Loads the html file and creates an template object.
-        $this->config = Base::getConfig(); // Reads base configuration from config.ini.
     }
 
     /**
@@ -37,24 +34,21 @@ class App implements Application
          * Base::parseQueryString() creates an array of the URI elements, and is filtering its values.
          * For security reasons always use this function instead of directly accessing $_GET or $_REQUEST parameters!
          */
-        $this->properties = Base::parseQueryString();
+        $_get = Base::parseQueryString();
 
-        if(isset($this->properties['mod']) && strtolower($this->properties['mod']) == "layout")
+        if(isset($_get['mod']) && strtolower($_get['mod']) == "layout")
             $appHtml = $this->render(Base::errorMessage("Please check the configuration of the layout module: You created an infinite loop!"));
         else {
-            $modName = isset($this->properties['mod']) ? $this->properties['mod'] : 'layout'; // Parameter "mod" is the required module name.
-            $nowrap = isset($this->properties['nowrap']) ? true : false; // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
+            $modName = isset($_get['mod']) ? $_get['mod'] : 'layout'; // Parameter "mod" is the required module name.
+            $nowrap = isset($_get['nowrap']) ? true : false; // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
 
-            $Module = Modules::factory($modName, $this->properties); // The factory pattern returns an object of a module.
+            $Module = Modules::factory($modName, $_get); // The factory pattern returns an object of a module.
             $html = $Module->render();
-
-            /* Merge CSS and JS files and add them to the html header. */
-            $additionalFiles = array_merge_recursive($this->config['additional_files'], $Module->additionalFiles);
 
             if ($nowrap)
                 $appHtml = $html;
             else {
-                $appHtml = $this->render($html, $additionalFiles);
+                $appHtml = $this->render($html);
             }
         }
 
@@ -62,29 +56,29 @@ class App implements Application
     }
 
     /**
-     * This method returns the parsed html.
      * @param $html
-     * @param array $additionalFiles
      * @return mixed|string
      */
-    public function render($html, $additionalFiles = array())
+    public function render($html)
     {
+        $config = Base::getConfig();
+        $additionalFiles = Base::getHeaderFiles();
         $marker['###MOD_LAYOUT###'] = $html;
 
-        $marker['###CONFIG_LANG###'] = $this->config['page_settings']['html_lang'];
-        $marker['###CONFIG_TITLE###'] = $this->config['page_settings']['Title'];
-        $marker['###CONFIG_CHARSET###'] = $this->config['page_settings']['meta_charset'];
+        $marker['###CONFIG_LANG###'] = $config['page_settings']['html_lang'];
+        $marker['###CONFIG_TITLE###'] = $config['page_settings']['Title'];
+        $marker['###CONFIG_CHARSET###'] = $config['page_settings']['meta_charset'];
 
-        $marker['###CONFIG_VIEWPORT###'] = $this->config['metatags']['Viewport'];
-        $marker['###CONFIG_DESCRIPTION###'] = $this->config['metatags']['Description'];
-        $marker['###CONFIG_AUTHOR###'] = $this->config['metatags']['Author'];
+        $marker['###CONFIG_VIEWPORT###'] = $config['metatags']['Viewport'];
+        $marker['###CONFIG_DESCRIPTION###'] = $config['metatags']['Description'];
+        $marker['###CONFIG_AUTHOR###'] = $config['metatags']['Author'];
 
         $marker['###BODY_ONLOAD###'] = Base::getBodyOnload();
 
         $SubMetaTags = $this->Template->getSubpart('###CONF_METATAGS###');
         $subpart['###CONF_METATAGS###'] = '';
-        if (isset($this->config['metatags'])) {
-            foreach ($this->config['metatags'] as $meta => $content) {
+        if (isset($config['metatags'])) {
+            foreach ($config['metatags'] as $meta => $content) {
                 $metaMarker['###NAME###'] = $meta;
                 $metaMarker['###CONTENT###'] = $content;
                 $subpart['###CONF_METATAGS###'] .= $SubMetaTags->parse($metaMarker);

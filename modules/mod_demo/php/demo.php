@@ -10,11 +10,10 @@ class Demo implements Module
     private $Template = null;
 
     public $additional_files = array();
-    public $html = '';
 
     public function __construct($props)
     {
-        $this->Template = Template::load("modules/mod_demo/template/demo.html");
+        $this->Template = Template::load("modules/mod_demo/template/menu.html");
         $this->properties = $props;
 
         $this->additionalFiles = array(

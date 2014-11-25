@@ -6,15 +6,20 @@ namespace UltimateBackend\lib;
 class Base
 {
     private static $iniFile = "config.ini";
+    private static $config = array();
     private static $bodyOnload = '';
+
+    public static function construct()
+    {
+        self::$config = parse_ini_file(self::$iniFile, true);
+    }
 
     /**
      * @return array
-     * @throws \Exception
      */
     public static function getConfig()
     {
-        return parse_ini_file(self::$iniFile, true);
+        return self::$config;
     }
 
     /**
@@ -37,11 +42,35 @@ class Base
         return $varArr;
     }
 
+    /**
+     * @param array $files
+     */
+    public static function setHeaderFiles($files = array())
+    {
+        if (isset($files['css']) || isset($files['js'])) {
+            self::$config['additional_files'] = array_merge_recursive(self::$config['additional_files'], $files);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public static function getHeaderFiles()
+    {
+        return self::$config['additional_files'];
+    }
+
+    /**
+     * @param $value
+     */
     public static function setBodyOnload($value)
     {
         self::$bodyOnload .= $value;
     }
 
+    /**
+     * @return string
+     */
     public static function getBodyOnload()
     {
         return self::$bodyOnload;
