@@ -11,9 +11,9 @@ class Demo implements Module
 
     public $additional_files = array();
 
-    public function __construct($props)
+    public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = Template::load("modules/mod_demo/template/menu.html");
+        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_demo/template/demo.html");
         $this->properties = $props;
 
         $this->additionalFiles = array(

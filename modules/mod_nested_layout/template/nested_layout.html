@@ -1,21 +1,18 @@
 <script type="text/javascript">
 
-    var baseLayout;
-    function doOnLoad() {
-        baseLayout = new dhtmlXLayoutObject({
-            parent: document.body,  // parent container
-            pattern: "2U",          // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
-            skin: "dhx_terrace"     // dhx_skyblue, dhx_web or dhx_terrace
-        });
+    var baseLayout = new dhtmlXLayoutObject({
+        parent: document.body,  // parent container
+        pattern: "3L",          // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
+        skin: "dhx_skyblue"     // dhx_skyblue, dhx_web or dhx_terrace
+    });
 
-        baseLayout.setOffsets({top: 10, right: 10, bottom: 10,  left: 10});
+    baseLayout.setOffsets({top: 0, right: 0, bottom: 0, left: 0});
 
-        baseLayout.cells("a").showHeader();
-        baseLayout.cells("a").setText("Left");
-        baseLayout.cells("a").attachHTMLString('###CONTENT###');
+    baseLayout.cells("a").showHeader();
+    baseLayout.cells("a").setText("Left");
+    baseLayout.cells("a").attachHTMLString('###CONTENT###');
 
-        baseLayout.cells("b").showHeader();
-        baseLayout.cells("b").setText("Right");
-    }
+    baseLayout.cells("b").showHeader();
+    baseLayout.cells("b").setText("Right");
 
 </script>

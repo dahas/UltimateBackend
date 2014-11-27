@@ -14,16 +14,15 @@ class Nested_Layout implements Module
     public $htmlFile = "modules/mod_nested_layout/template/nested_layout.html";
     public $additionalFiles = array();
 
-    public function __construct($props)
+    public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = Template::load($this->htmlFile);
+        $this->Template = $Tmpl ? $Tmpl : Template::load($this->htmlFile);
         $this->properties = $props;
     }
 
     public function render()
     {
-        $Module = Modules::factory("Layout");
-        $this->additionalFiles = $Module->additionalFiles;
+        Modules::factory("Layout");
 
         $marker['###CONTENT###'] = 'Here is the content!';
 

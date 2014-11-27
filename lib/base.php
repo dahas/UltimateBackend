@@ -57,7 +57,24 @@ class Base
      */
     public static function getHeaderFiles()
     {
-        return self::$config['additional_files'];
+        if(isset(self::$config['additional_files']))
+            return self::removeDuplicateFiles(self::$config['additional_files']);
+        else
+            return array();
+    }
+
+    /**
+     * @param $array
+     * @return array
+     */
+    private static function removeDuplicateFiles($array)
+    {
+        $fixedArr = array();
+        if(isset($array['css']))
+            $fixedArr['css'] = array_unique($array['css']);
+        if(isset($array['js']))
+            $fixedArr['js'] = array_unique($array['js']);
+        return $fixedArr;
     }
 
     /**

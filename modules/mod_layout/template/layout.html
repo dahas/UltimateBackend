@@ -3,68 +3,65 @@
 
     var BaseLayout;
     var Menu;
-    var AttachedTree;
+    var Tree;
+    var Tabbar;
+    var TabGrid;
 
-    function doOnLoad()
-    {
-        /* Basic configuration */
+    /* Basic configuration */
 
-        BaseLayout = new dhtmlXLayoutObject({
-            parent: document.body,  // parent container
-            pattern: "3L",  // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
-            skin: "dhx_terrace" // dhx_skyblue, dhx_web or dhx_terrace
-        });
+    BaseLayout = new dhtmlXLayoutObject({
+        parent: document.body,  // parent container
+        pattern: "2U",  // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
+    });
 
-        BaseLayout.setOffsets({top: 10, right: 10, bottom: 10, left: 10});
+    BaseLayout.setOffsets({top: 0, right: 0, bottom: 0, left: 0});
 
-        Menu = BaseLayout.attachMenu();
-        Menu.loadFromHTML("main_menu", true);
-        Menu.setSkin("dhx_terrace");
-        Menu.setIconsPath("resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/imgs/dhxtree_skyblue/");
+    Menu = BaseLayout.attachMenu();
+    Menu.loadFromHTML("###MAIN_MENU_ID###", true);
 
-        /* Left pane */
+    /* Left pane */
 
-        BaseLayout.cells("a").showHeader();
-        BaseLayout.cells("a").setText("Structure");
-        BaseLayout.cells("a").setWidth(300);
-        BaseLayout.cells("a").progressOn();
-        BaseLayout.cells("a").attachTree(0);
+    BaseLayout.cells("a").showHeader();
+    BaseLayout.cells("a").setText("Customers");
+    BaseLayout.cells("a").setWidth(400);
+    BaseLayout.cells("a").progressOn();
+    BaseLayout.cells("a").attachTree();
 
-        AttachedTree = BaseLayout.cells("a").getAttachedObject();
-        AttachedTree.setDataMode("json");
-        AttachedTree.enableTreeLines(true);
-        AttachedTree.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/imgs/dhxtree_skyblue/");
+    /* Right top pane */
 
-        AttachedTree.loadJSON(
-                '###TREE_DATA_URL###',
-                function () {
-                    BaseLayout.cells("a").progressOff();
-                }
-        );
+    BaseLayout.cells("b").showHeader();
+    BaseLayout.cells("b").setText("");
+    BaseLayout.cells("b").attachTabbar();
+    BaseLayout.cells("b").progressOn();
 
-        AttachedTree.attachEvent("onSelect", function (id) {
-            BaseLayout.cells("b").detachObject(true);
-            // Load Grid module into Pane B
-            if (id == "1") {
-                BaseLayout.cells("b").progressOn();
-                BaseLayout.cells("b").attachURL("index.php?mod=grid");
+    /* Right top pane: Tabbar */
+
+    Tabbar = BaseLayout.cells("b").getAttachedObject();
+    Tabbar.setSkin("dhx_skyblue");
+    Tabbar.setTabsMode("top");
+    Tabbar.setAlign("left");
+
+    /* Left pane: Tree */
+
+    Tree = BaseLayout.cells("a").getAttachedObject();
+    Tree.setSkin("dhx_terrace");
+    Tree.setDataMode("json");
+    Tree.enableTreeLines(true);
+    Tree.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/imgs/dhxtree_skyblue/");
+
+    Tree.loadJSON(
+            '###TREE_DATA_URL###',
+            function () {
+                BaseLayout.cells("a").progressOff();
             }
+    );
+
+    Tree.attachEvent("onSelect", function (id) {
+        BaseLayout.cells("b").progressOn();
+        Tabbar.loadStruct('###TAB_DATA_URL###', function() {
+            TabGrid = Tabbar.tabs("a1");
+            TabGrid.attachURL("###GRID_URL###");
         });
-
-        /* Right top pane */
-
-        BaseLayout.cells("b").showHeader();
-        BaseLayout.cells("b").setText("Datalist");
-
-        /* Right bottom pane */
-
-        BaseLayout.cells("c").showHeader();
-        BaseLayout.cells("c").setText("Edit Data");
-        BaseLayout.attachEvent("onContentLoaded", function (id) {
-            BaseLayout.cells("c").progressOff();
-        });
-        BaseLayout.cells("c").progressOn();
-        BaseLayout.cells("c").attachURL("###C_ATTACH_URL###", false);
-    }
+    });
 
 </script>

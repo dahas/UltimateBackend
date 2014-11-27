@@ -13,14 +13,14 @@ class Menu implements Module
     public $additional_files = array();
     public $menuID = "main_menu";
 
-    public function __construct($props)
+    public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = Template::load("modules/mod_menu/template/menu.html");
+        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_menu/template/menu.html");
         $this->properties = $props;
 
         Base::setHeaderFiles(array(
             'css' => array(
-                "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/skins/dhtmlxmenu_dhx_terrace.css"
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/skins/dhtmlxmenu_dhx_skyblue.css"
             ),
             'js' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/dhtmlxmenu.js",
@@ -29,10 +29,10 @@ class Menu implements Module
         ));
     }
 
-	public function render()
-	{
+    public function render()
+    {
         $marker['###MENU_ID###'] = $this->menuID;
         return $this->Template->parse($marker);
-	}
+    }
 
 }

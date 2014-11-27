@@ -1,0 +1,27 @@
+<div id="main_tree" style="width:100%;height:100%;"></div>
+<script>
+
+    Tree = new dhtmlXTreeObject(document.getElementById("main_tree"),"100%","100%",0);
+    Tree.setSkin("dhx_terrace");
+    Tree.setDataMode("json");
+    Tree.enableTreeLines(true);
+    Tree.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/imgs/dhxtree_skyblue/");
+
+    Tree.loadJSON(
+            '###DATA_URL###',
+            function () {
+                if(parent.BaseLayout)
+                    parent.BaseLayout.cells("a").progressOff();
+            }
+    );
+
+    Tree.attachEvent("onSelect", function (id) {
+        parent.BaseLayout.cells("b").detachObject(true);
+        // Load Grid module into Pane B
+        if (id == "1") {
+            parent.BaseLayout.cells("b").progressOn();
+            parent.BaseLayout.cells("b").attachURL("?mod=tabbar");
+        }
+    });
+
+</script>

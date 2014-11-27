@@ -21,7 +21,7 @@ class App implements Application
 
     public function __construct()
     {
-        Base::construct();
+        Base::construct(); // Loads config.ini
         $this->Template = Template::load("app/template/app.html"); // Loads the html file and creates an template object.
     }
 
@@ -36,16 +36,19 @@ class App implements Application
          */
         $_get = Base::parseQueryString();
 
-        if(isset($_get['mod']) && strtolower($_get['mod']) == "layout")
+        $task = isset($_get['task']) ? $_get['task'] : "render";    // Paraameter "task" is required, so that the module knows, which task to execute.
+
+        // Avoid infinite loop before proceeding
+        if(isset($_get['mod']) && strtolower($_get['mod']) == "layout" && $task=="render")
             $appHtml = $this->render(Base::errorMessage("Please check the configuration of the layout module: You created an infinite loop!"));
         else {
-            $modName = isset($_get['mod']) ? $_get['mod'] : 'layout'; // Parameter "mod" is the required module name.
-            $nowrap = isset($_get['nowrap']) ? true : false; // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
+            $modName = isset($_get['mod']) ? $_get['mod'] : 'layout';   // Parameter "mod" is the required module name.
+            $nowrap = isset($_get['nowrap']) ? true : false;            // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
 
-            $Module = Modules::factory($modName, $_get); // The factory pattern returns an object of a module.
-            $html = $Module->render();
+            $Module = Modules::factory($modName, $_get);    // The factory pattern returns an object of a module.
+            $html = $Module->$task();                       // The module executes the requested task.
 
-            if ($nowrap)
+            if ($nowrap || $task!="render")
                 $appHtml = $html;
             else {
                 $appHtml = $this->render($html);
@@ -63,6 +66,7 @@ class App implements Application
     {
         $config = Base::getConfig();
         $additionalFiles = Base::getHeaderFiles();
+        $bodyOnload = Base::getBodyOnload();
         $marker['###MOD_LAYOUT###'] = $html;
 
         $marker['###CONFIG_LANG###'] = $config['page_settings']['html_lang'];
@@ -73,7 +77,12 @@ class App implements Application
         $marker['###CONFIG_DESCRIPTION###'] = $config['metatags']['Description'];
         $marker['###CONFIG_AUTHOR###'] = $config['metatags']['Author'];
 
-        $marker['###BODY_ONLOAD###'] = Base::getBodyOnload();
+        $SubBodyTag = $this->Template->getSubpart('###BODY_ONLOAD###');
+        $subpart['###BODY_ONLOAD###'] = '';
+        if($bodyOnload) {
+            $markerBdOl['###ONLOAD###'] = $bodyOnload;
+            $subpart['###BODY_ONLOAD###'] = $SubBodyTag->parse($markerBdOl);
+        }
 
         $SubMetaTags = $this->Template->getSubpart('###CONF_METATAGS###');
         $subpart['###CONF_METATAGS###'] = '';

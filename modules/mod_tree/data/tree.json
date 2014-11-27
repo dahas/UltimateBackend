@@ -9,6 +9,6 @@
             {id: "2-3-3", text: "Third SubChild"}
         ]}
     ]},
-    {id: 3, text: "Load accorion into Content pane"},
+    {id: 3, text: "Load accordion into Content pane"},
     {id: 4, text: "Fourth Node"}
 ]}
