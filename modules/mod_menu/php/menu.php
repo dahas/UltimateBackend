@@ -11,6 +11,7 @@ class Menu implements Module
     private $Template = null;
 
     public $additional_files = array();
+
     public $menuID = "main_menu";
 
     public function __construct($props, Template $Tmpl = null)

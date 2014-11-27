@@ -12,6 +12,8 @@ class Tree implements Module
 
     public $additional_files = array();
 
+    public $data_link = "?mod=tree&task=loadData";
+
     public function __construct($props, Template $Tmpl = null)
     {
         $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tree/template/tree.html");
@@ -31,8 +33,29 @@ class Tree implements Module
 
 	public function render()
 	{
-        $marker['###DATA_URL###'] = "modules/mod_tree/data/tree.json";
+        $marker['###DATA_URL###'] = $this->data_link;
         return $this->Template->parse($marker);
 	}
+
+    /**
+     * Task to load the tree items.
+     */
+    public function loadData()
+    {
+        $data = '{id: 0, item: [
+            {id: "100332", text: "Smith Inc.", select:"1"},
+            {id: "101544", text: "Clean Steel Foundation", item: [
+                {id: "101544-224", text: "CSF Miami"},
+                {id: "101544-746", text: "CSF New York"},
+                {id: "101544-355", text: "CSF Phoenix Arizona"}
+            ]},
+            {id: "104634", text: "Rutherford & Wagner"},
+            {id: "103997", text: "Bullhead Inc."},
+            {id: "103135", text: "John H. Muller"}
+        ]}';
+
+        header('Content-Type: application/json');
+        echo($data);
+    }
 
 }

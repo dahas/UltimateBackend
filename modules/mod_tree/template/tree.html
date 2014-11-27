@@ -16,12 +16,7 @@
     );
 
     Tree.attachEvent("onSelect", function (id) {
-        parent.BaseLayout.cells("b").detachObject(true);
-        // Load Grid module into Pane B
-        if (id == "1") {
-            parent.BaseLayout.cells("b").progressOn();
-            parent.BaseLayout.cells("b").attachURL("?mod=tabbar");
-        }
+
     });
 
 </script>

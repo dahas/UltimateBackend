@@ -101,7 +101,6 @@ class Layout implements Module
             ]
         }';
 
-
         header('Content-Type: application/json');
         echo($data);
     }
