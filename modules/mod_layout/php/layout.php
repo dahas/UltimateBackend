@@ -3,6 +3,8 @@
 use UltimateBackend\lib\interfaces\Module;
 use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
+use UltimateBackend\lib\DB;
+use UltimateBackend\lib\Recordset;
 use UltimateBackend\lib\Modules;
 
 
@@ -44,12 +46,66 @@ class Layout implements Module
         $marker['###MAIN_MENU###'] = $ModMenu->render();
         $marker['###MAIN_MENU_ID###'] = $ModMenu->menuID;
 
+        $marker['###LEFT_PANE_TITLE###'] = "Hersteller";
+        $marker['###RIGHT_PANE_TITLE###'] = "Produkte";
+
         $marker['###TREE_DATA_URL###'] = "?mod=layout&task=loadTree";
         $marker['###TAB_DATA_URL###'] = "?mod=layout&task=loadTabs";
 
-        $marker['###GRID_URL###'] = "?mod=grid";
+        $marker['###PRODUCTS_URL###'] = "?mod=products";
 
         return $this->Template->parse($marker);
+    }
+
+    /**
+     * Task to load the tree items.
+     */
+    public function loadTree()
+    {
+        $db = DB::connect();
+        $companies = $db->select("
+            SELECT h.id, h.name, COUNT(b.id) AS hasBranch
+            FROM ub_companies_hq h
+            LEFT JOIN ub_companies_branch b ON h.id = b.hq_id
+            GROUP BY h.name
+            ORDER BY h.id
+        ");
+
+        $x = 0;
+        while ($company = $companies->getRow(Recordset::FETCH_ASSOC)) {
+            $selected = $x == 0 ? true : false;
+            if ($company['hasBranch']) {
+                $node = '{id: "' . $company['id'] . '", text: "' . $company['name'] . '"' . $selected . ', item: [';
+                $branches = $db->select("
+                    SELECT id, name
+                    FROM ub_companies_branch
+                    WHERE hq_id = ".$company['id']."
+                    ORDER BY id
+                ");
+                while ($branch = $branches->getRow(Recordset::FETCH_ASSOC)) {
+                    $node_items[] = $this->createTreeItems($company['id'], $company['name'], false);
+                }
+                $node .= "\n\t\t" . implode(",\n\t\t",$node_items) . "\n\t";
+                $node .= ']}';
+                $items[] = $node;
+            } else {
+                $items[] = $this->createTreeItems($company['id'], $company['name'], $selected);
+                $x++;
+            }
+        }
+
+        $json = '{id: 0, item: [' .
+            "\n\t" . implode(",\n\t", $items) . "\n" .
+            ']}';
+
+        header('Content-Type: application/json');
+        echo($json);
+    }
+
+    private function createTreeItems($id, $name, $selected)
+    {
+        $sel = $selected ? ', select:"1"' : '';
+        return '{id: "' . $id . '", text: "' . $name . '"' . $sel . '}';
     }
 
     /**
@@ -57,11 +113,11 @@ class Layout implements Module
      */
     public function loadTabs()
     {
-        $data = '{
+        $json = '{
             tabs: [
                 {
                     id: "a1",      // tab id
-                    text: "Customer Details",    // tab text
+                    text: "Products",    // tab text
                     width: null,      // numeric for tab width or null for auto, optional
                     index: null,      // numeric for tab index or null for last position, optional
                     active: true,      // boolean, make tab active after adding, optional
@@ -70,60 +126,19 @@ class Layout implements Module
                 },
                 {
                     id: "a2",      // tab id
-                    text: "Documents",    // tab text
+                    text: "Logs",    // tab text
                     width: null,      // numeric for tab width or null for auto, optional
                     index: null,      // numeric for tab index or null for last position, optional
                     active: false,      // boolean, make tab active after adding, optional
                     enabled: true,     // boolean, false to disable tab on init
                     close: false,       // boolean, render close button on tab, optional
-                    href: "?mod=demo"
-                },
-                {
-                    id: "a3",      // tab id
-                    text: "Statistics",    // tab text
-                    width: null,      // numeric for tab width or null for auto, optional
-                    index: null,      // numeric for tab index or null for last position, optional
-                    active: false,      // boolean, make tab active after adding, optional
-                    enabled: true,     // boolean, false to disable tab on init
-                    close: false,       // boolean, render close button on tab, optional
-                    href: "?mod=grid"
-                },
-                {
-                    id: "a4",      // tab id
-                    text: "Report",    // tab text
-                    width: null,      // numeric for tab width or null for auto, optional
-                    index: null,      // numeric for tab index or null for last position, optional
-                    active: false,      // boolean, make tab active after adding, optional
-                    enabled: true,     // boolean, false to disable tab on init
-                    close: false,       // boolean, render close button on tab, optional
-                    href: "?mod=nested_layout"
+                    href: "?mod=logs"
                 }
             ]
         }';
 
         header('Content-Type: application/json');
-        echo($data);
-    }
-
-    /**
-     * Task to load the tree items.
-     */
-    public function loadTree()
-    {
-        $data = '{id: 0, item: [
-            {id: "100332", text: "Smith Inc.", select:"1"},
-            {id: "101544", text: "Clean Steel Foundation", item: [
-                {id: "101544-224", text: "CSF Miami"},
-                {id: "101544-746", text: "CSF New York"},
-                {id: "101544-355", text: "CSF Phoenix Arizona"}
-            ]},
-            {id: "104634", text: "Rutherford & Wagner"},
-            {id: "103997", text: "Bullhead Inc."},
-            {id: "103135", text: "John H. Muller"}
-        ]}';
-
-        header('Content-Type: application/json');
-        echo($data);
+        echo($json);
     }
 
 }

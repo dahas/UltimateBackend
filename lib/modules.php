@@ -44,7 +44,28 @@ class Modules
             }
         }
 
-        require_once strtolower("modules/mod_$name/php/$name.php");
-        return new $name($properties, $Tmpl);
+        $modFile = "modules/mod_$name/php/$name.php";
+
+        if (is_file($modFile)) {
+            require_once $modFile;
+            return new $name($properties, $Tmpl);
+        } else {
+            return new ErrorMod($name);
+        }
+    }
+}
+
+class ErrorMod
+{
+    private $modName = "";
+
+    public function __construct($modName)
+    {
+        $this->modName = strtolower("mod_$modName");
+    }
+
+    public function render()
+    {
+        return Base::errorMessage("Module '$this->modName' not found!");
     }
 }

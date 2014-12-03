@@ -11,7 +11,7 @@
 
     BaseLayout = new dhtmlXLayoutObject({
         parent: document.body,  // parent container
-        pattern: "2U",  // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
+        pattern: "2U"  // Patterns, see: http://docs.dhtmlx.com/layout__patterns.html
     });
 
     BaseLayout.setOffsets({top: 0, right: 0, bottom: 0, left: 0});
@@ -22,7 +22,7 @@
     /* Left pane */
 
     BaseLayout.cells("a").showHeader();
-    BaseLayout.cells("a").setText("Customers");
+    BaseLayout.cells("a").setText("###LEFT_PANE_TITLE###");
     BaseLayout.cells("a").setWidth(400);
     BaseLayout.cells("a").progressOn();
     BaseLayout.cells("a").attachTree();
@@ -30,7 +30,7 @@
     /* Right top pane */
 
     BaseLayout.cells("b").showHeader();
-    BaseLayout.cells("b").setText("");
+    BaseLayout.cells("b").setText("###RIGHT_PANE_TITLE###");
     BaseLayout.cells("b").attachTabbar();
     BaseLayout.cells("b").progressOn();
 
@@ -58,9 +58,10 @@
 
     Tree.attachEvent("onSelect", function (id) {
         BaseLayout.cells("b").progressOn();
-        Tabbar.loadStruct('###TAB_DATA_URL###', function() {
+        Tabbar.loadStruct('###TAB_DATA_URL###&id='+id, function() {
             TabGrid = Tabbar.tabs("a1");
-            TabGrid.attachURL("###GRID_URL###");
+            TabGrid = Tabbar.tabs("a1");
+            TabGrid.attachURL('###PRODUCTS_URL###&id='+id);
         });
     });
 

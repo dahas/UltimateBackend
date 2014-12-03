@@ -10,8 +10,6 @@ class Tree implements Module
     private $properties = array();
     private $Template = null;
 
-    public $additional_files = array();
-
     public $data_link = "?mod=tree&task=loadData";
 
     public function __construct($props, Template $Tmpl = null)

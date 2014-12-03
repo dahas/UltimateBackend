@@ -3,15 +3,31 @@
 
     var Grid = new dhtmlXGridObject('gridbox');
     Grid.setImagePath("resources/dhtmlxSuite_v403_std/sources/dhtmlxGrid/codebase/imgs/");
-    Grid.setHeader("Sales, Book Title, Author");
-    Grid.setInitWidths("70,250,*")
-    Grid.setColAlign("right,left,left")
-    Grid.setColTypes("dyn,ed,ed");
-    Grid.setColSorting("int,str,str")
+
+    Grid.setHeader("###COLUMN_HEADERS###");
+    Grid.setInitWidths("###COLUMN_WIDTHS###");
+    Grid.setColAlign("###COLUMN_ALIGN###");
+    Grid.setColTypes("###COLUMN_TYPES###");
+    Grid.setColSorting("###COLUMN_SORTING###");
+
+    var footerText = "###FOOTER###";
+    if(footerText)
+        Grid.attachFooter("###FOOTER###");
+
+    Grid.enableAutoHeight(true, document.getElementById("gridbox").offsetHeight-30, true);
+    Grid.enableMultiselect(true);
+
+    Grid.objBox.style.overflowX = "hidden";
+
     Grid.init();
+
     Grid.load('###DATA_URL###', function(){
         if(parent.BaseLayout)
             parent.BaseLayout.cells("b").progressOff();
     }, "json");
+
+    Grid.attachEvent("onRowSelect", function(rid){
+        //alert(rid);
+    });
 
 </script>

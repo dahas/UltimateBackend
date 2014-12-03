@@ -30,7 +30,7 @@ class App implements Application
      */
     public function execute()
     {
-        /*
+         /*
          * Base::parseQueryString() creates an array of the URI elements, and is filtering its values.
          * For security reasons always use this function instead of directly accessing $_GET or $_REQUEST parameters!
          */

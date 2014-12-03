@@ -11,12 +11,9 @@ class Nested_Layout implements Module
     private $properties = array();
     private $Template = null;
 
-    public $htmlFile = "modules/mod_nested_layout/template/nested_layout.html";
-    public $additionalFiles = array();
-
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load($this->htmlFile);
+        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_nested_layout/template/nested_layout.html");
         $this->properties = $props;
     }
 
@@ -25,6 +22,7 @@ class Nested_Layout implements Module
         Modules::factory("Layout");
 
         $marker['###CONTENT###'] = 'Here is the content!';
+        $marker['###MOD_GRID###'] = "?mod=grid";
 
         return $this->Template->parse($marker);
     }

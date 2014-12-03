@@ -10,9 +10,13 @@ class Grid implements Module
     private $properties = array();
     private $Template = null;
 
-    public $additional_files = array();
-
-    public $data_link = "?mod=grid&task=loadData";
+    private $column_headers = "Col1,Col2,Col3";
+    private $column_widths = "200,100,*";
+    private $column_align = "left,right,right";
+    private $column_types = "ed,ro,ro";
+    private $column_sorting = "int,str,str";
+    private $footer = "";
+    private $data_link = "?mod=grid&task=loadData";
 
     public function __construct($props, Template $Tmpl = null)
     {
@@ -34,8 +38,70 @@ class Grid implements Module
      */
     public function render()
     {
+        $marker['###COLUMN_HEADERS###'] = $this->column_headers;
+        $marker['###COLUMN_WIDTHS###'] = $this->column_widths;
+        $marker['###COLUMN_ALIGN###'] = $this->column_align;
+        $marker['###COLUMN_TYPES###'] = $this->column_types;
+        $marker['###COLUMN_SORTING###'] = $this->column_sorting;
+        $marker['###FOOTER###'] = $this->footer;
         $marker['###DATA_URL###'] = $this->data_link;
         return $this->Template->parse($marker);
+    }
+
+    /**
+     * @param string $data_link
+     */
+    public function setDataLink($data_link)
+    {
+        $this->data_link = $data_link;
+    }
+
+    /**
+     * @param string $headers
+     */
+    public function setColumnHeaders($headers)
+    {
+        $this->column_headers = $headers;
+    }
+
+    /**
+     * @param string $widths
+     */
+    public function setColumnWidths($widths)
+    {
+        $this->column_widths = $widths;
+    }
+
+    /**
+     * @param string $align
+     */
+    public function setColumnAlign($align)
+    {
+        $this->column_align = $align;
+    }
+
+    /**
+     * @param string $types
+     */
+    public function setColumnTypes($types)
+    {
+        $this->column_types = $types;
+    }
+
+    /**
+     * @param string $sorting
+     */
+    public function setColumnSorting($sorting)
+    {
+        $this->column_sorting = $sorting;
+    }
+
+    /**
+     * @param string $footer
+     */
+    public function setFooter($footer)
+    {
+        $this->footer = $footer;
     }
 
     /**
