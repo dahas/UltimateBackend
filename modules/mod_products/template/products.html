@@ -4,65 +4,54 @@
 
     var Toolbar = new dhtmlXToolbarObject("grid_toolbar", "dhx_skyblue");
     Toolbar.setIconsPath("resources/famfam_silk_icons/");
-    Toolbar.addButton("add", 10,"Add a product","add.png");
-    Toolbar.addButton("delete", 20,"Delete product(s)","delete.png");
+    Toolbar.addButton("add", 10, "Add a product", "add.png");
+    Toolbar.addButton("delete", 20, "Delete product(s)", "delete.png");
 
-    Toolbar.attachEvent("onClick", function(id)
-    {
+    Toolbar.attachEvent("onClick", function (id) {
         var progress = parent.BaseLayout ? true : false;
-        switch(id)
-        {
+        switch (id) {
             case "add":
-                if(progress)
+                if (progress)
                     parent.BaseLayout.cells("b").progressOn();
-                dhtmlxAjax.get("###ADD_PRODUCT_URL###", function(r){
-                    if(r.xmlDoc.responseText) {
+                dhtmlxAjax.get("###ADD_PRODUCT_URL###", function (r) {
+                    if (r.xmlDoc.responseText) {
                         var newID = r.xmlDoc.responseText;
-                        Grid.addRow(newID,"");
+                        Grid.addRow(newID, "");
                         Grid.selectRowById(newID);
-                        if(progress)
+                        if (progress)
                             parent.BaseLayout.cells("b").progressOff();
                     }
                 });
                 break;
 
             case "delete":
-                if(progress)
-                    parent.BaseLayout.cells("b").progressOn();
-                dhtmlxAjax.get("###DELETE_PRODUCTS_URL###&rids="+Grid.getSelectedRowId(), function(r){
-                    if(r.xmlDoc.responseText) {
-                        var rids = r.xmlDoc.responseText.split(",");
-                        for(var i=0; i<rids.length; i++) {
-                            Grid.deleteRow(rids[i]);
-                        }
-                        if(progress)
-                            parent.BaseLayout.cells("b").progressOff();
-                    }
-                });
+                dhtmlxAjax.get("###DELETE_PRODUCTS_URL###&rids=" + Grid.getSelectedRowId(), function(){});
+                Grid.deleteSelectedRows();
                 break;
         }
     });
 
-    Grid.attachEvent("onEditCell", function(stage,rid,cind,nValue,oValue)
-    {
+    Grid.attachEvent("onEditCell", function (stage, rid, cind, nValue, oValue) {
         var addParams = '';
-        if(stage==2) {
-            switch(parseInt(cind)) {
+        if (stage == 2) {
+            switch (parseInt(cind)) {
                 case 0:
-                    addParams = "&rid="+rid+"&fName=title&fValue="+nValue;
+                    addParams = "&rid=" + rid + "&fName=title&fValue=" + nValue;
                     break;
                 case 1:
-                    addParams = "&rid="+rid+"&fName=price&fValue="+nValue;
+                    addParams = "&rid=" + rid + "&fName=price&fValue=" + nValue;
                     break;
                 case 2:
-                    addParams = "&rid="+rid+"&fName=amount&fValue="+nValue;
+                    addParams = "&rid=" + rid + "&fName=amount&fValue=" + nValue;
                     break;
             }
-            dhtmlxAjax.get("###EDIT_PRODUCT_URL###"+addParams, function(r){
-                if(r.xmlDoc.responseText>0) {
-                    Grid.cells(rid,cind).setValue(nValue);
-                }
-            });
+            if (nValue != oValue) {
+                dhtmlxAjax.get("###EDIT_PRODUCT_URL###" + addParams, function (r) {
+                    if (r.xmlDoc.responseText > 0) {
+                        Grid.cells(rid, cind).setValue(nValue);
+                    }
+                });
+            }
         }
     });
 

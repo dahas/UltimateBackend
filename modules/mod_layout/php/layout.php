@@ -3,37 +3,33 @@
 use UltimateBackend\lib\interfaces\Module;
 use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
-use UltimateBackend\lib\DB;
 use UltimateBackend\lib\Recordset;
 use UltimateBackend\lib\Modules;
 
 
-class Layout implements Module
+class Layout extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->properties = $props;
-        {
-            $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_layout/template/layout.html");
+        Module::__construct($props, $Tmpl);
 
-            Base::setHeaderFiles(array(
-                'css' => array(
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/skins/dhtmlxtree_dhx_skyblue.css"
-                ),
-                'js' => array(
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxCommon/codebase/dhtmlxcontainer.js",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/dhtmlxlayout.js",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/dhtmlxtabbar.js",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/dhtmlxtree.js",
-                    "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/ext/dhtmlxtree_json.js"
-                )
-            ));
-        }
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_layout/template/layout.html");
+
+        Base::setHeaderFiles(array(
+            'css' => array(
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/skins/dhtmlxtree_dhx_skyblue.css"
+            ),
+            'js' => array(
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxCommon/codebase/dhtmlxcontainer.js",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/dhtmlxlayout.js",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/dhtmlxtabbar.js",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/dhtmlxtree.js",
+                "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/ext/dhtmlxtree_json.js"
+            )
+        ));
     }
 
     /**
@@ -62,30 +58,30 @@ class Layout implements Module
      */
     public function loadTree()
     {
-        $db = DB::connect();
-        $companies = $db->select("
-            SELECT h.id, h.name, COUNT(b.id) AS hasBranch
-            FROM ub_companies_hq h
-            LEFT JOIN ub_companies_branch b ON h.id = b.hq_id
-            GROUP BY h.name
-            ORDER BY h.id
-        ");
+        $companies = $this->DB->select(array(
+            "columns" => "h.id, h.name, COUNT(b.id) AS hasBranch",
+            "from" => "ub_companies_hq h LEFT JOIN ub_companies_branch b ON h.id = b.hq_id",
+            "groupBy" => "h.name",
+            "orderBy" => "h.id"
+        ));
 
         $x = 0;
         while ($company = $companies->getRow(Recordset::FETCH_ASSOC)) {
             $selected = $x == 0 ? true : false;
             if ($company['hasBranch']) {
                 $node = '{id: "' . $company['id'] . '", text: "' . $company['name'] . '"' . $selected . ', item: [';
-                $branches = $db->select("
-                    SELECT id, name
-                    FROM ub_companies_branch
-                    WHERE hq_id = ".$company['id']."
-                    ORDER BY id
-                ");
+
+                $branches = $this->DB->select(array(
+                    "columns" => "id, name",
+                    "from" => "ub_companies_branch",
+                    "where" => "hq_id = " . $company['id'],
+                    "orderBy" => "id"
+                ));
+
                 while ($branch = $branches->getRow(Recordset::FETCH_ASSOC)) {
-                    $node_items[] = $this->createTreeItems($company['id'], $company['name'], false);
+                    $node_items[] = $this->createTreeItems($company['id'] . "|" . $branch['id'], $branch['name'], false);
                 }
-                $node .= "\n\t\t" . implode(",\n\t\t",$node_items) . "\n\t";
+                $node .= "\n\t\t" . implode(",\n\t\t", $node_items) . "\n\t";
                 $node .= ']}';
                 $items[] = $node;
             } else {

@@ -1,15 +1,49 @@
 <?php
 
 namespace UltimateBackend\lib\interfaces;
+
+use UltimateBackend\lib\Base;
 use UltimateBackend\lib\Template;
+use UltimateBackend\lib\DB;
+
 
 /**
- * Interface Module
+ * Abstract Class Module
  * @package UltimateBackend\lib\interfaces
  */
-interface Module
+abstract class Module
 {
-    public function __construct($props, Template $Tmpl = null);
+    protected $properties = array();
+    protected $Template = null;
+    protected $DB = null;
 
-    public function render();
+    abstract public function render();
+
+    public function __construct($props, Template $Tmpl = null)
+    {
+        $this->properties = $props;
+        $this->Template = $Tmpl;
+
+        $config = Base::getConfig();
+
+        $this->DB = new DB(
+            $config['database']['DB_Name'],
+            $config['database']['Host'],
+            $config['database']['Username'],
+            $config['database']['Password'],
+            $config['database']['Charset']
+        );
+    }
+
+    public function __call($method, $args)
+    {
+        return Base::errorMessage("Method $method() not defined!");
+    }
+
+    public function __destruct()
+    {
+        unset($this->Template);
+        unset($this->DB);
+        unset($this);
+    }
 }

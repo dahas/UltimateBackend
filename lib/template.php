@@ -3,6 +3,10 @@
 namespace UltimateBackend\lib;
 
 
+/**
+ * Class Template
+ * @package UltimateBackend\lib
+ */
 class Template
 {
     private $html = "";
@@ -73,23 +77,23 @@ class Template
         return $tmpl;
     }
 
-    private function substituteMarker($html, $markerArray)
+    private function replaceMarker($html, $markerArr)
     {
-        foreach ($markerArray as $key => $val) {
+        foreach ($markerArr as $key => $val) {
             $html = str_replace($key, $val, $html);
         }
         return $html;
     }
 
-    private function substituteSubpart($html, $subpartArray)
+    private function replaceSubpart($html, $subpartArr)
     {
-        foreach ($subpartArray as $key => $val) {
+        foreach ($subpartArr as $key => $val) {
             $html = self::trimSubpart($html, $key, $val);
         }
         return $html;
     }
 
-    private static function trimSubpart($html, $marker, $subpartContent, $recursive = 1)
+    private static function trimSubpart($html, $marker, $subpart, $recursive = 1)
     {
         $start = strpos($html, $marker);
         if ($start === false) {
@@ -105,13 +109,13 @@ class Template
         $after = substr($html, $stopAM);
         $between = substr($html, $startAM, $stop - $startAM);
         if ($recursive) {
-            $after = self::trimSubpart($after, $marker, $subpartContent, $recursive);
+            $after = self::trimSubpart($after, $marker, $subpart, $recursive);
         }
         $matches = array();
         if (preg_match('/^(.*)\<\!\-\-[^\>]*$/s', $before, $matches) === 1) {
             $before = $matches[1];
         }
-        if (is_array($subpartContent)) {
+        if (is_array($subpart)) {
             $matches = array();
             if (preg_match('/^([^\<]*\-\-\>)(.*)(\<\!\-\-[^\>]*)$/s', $between, $matches) === 1) {
                 $between = $matches[2];
@@ -125,22 +129,22 @@ class Template
         if (preg_match('/^[^\<]*\-\-\>(.*)$/s', $after, $matches) === 1) {
             $after = $matches[1];
         }
-        if (is_array($subpartContent)) {
-            $between = $subpartContent[0] . $between . $subpartContent[1];
+        if (is_array($subpart)) {
+            $between = $subpart[0] . $between . $subpart[1];
         } else {
-            $between = $subpartContent;
+            $between = $subpart;
         }
         return $before . $between . $after;
     }
 
-    public function parse($markerArray = array(), $subpartArray = array())
+    public function parse($markerArr = array(), $subpartArr = array())
     {
         $html = $this->html;
-        if (!empty($markerArray)) {
-            $html = $this->substituteMarker($html, $markerArray);
+        if (!empty($markerArr)) {
+            $html = $this->replaceMarker($html, $markerArr);
         }
-        if (!empty($subpartArray)) {
-            $html = $this->substituteSubpart($html, $subpartArray);
+        if (!empty($subpartArr)) {
+            $html = $this->replaceSubpart($html, $subpartArr);
         }
         return $html;
     }

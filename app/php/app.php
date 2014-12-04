@@ -39,9 +39,9 @@ class App implements Application
         $task = isset($_get['task']) ? $_get['task'] : "render";    // Paraameter "task" is required, so that the module knows, which task to execute.
 
         // Avoid infinite loop before proceeding
-        if(isset($_get['mod']) && strtolower($_get['mod']) == "layout" && $task=="render")
-            $appHtml = $this->render(Base::errorMessage("Please check the configuration of the layout module: You created an infinite loop!"));
-        else {
+        #if(isset($_get['mod']) && strtolower($_get['mod']) == "layout" && $task=="render")
+        #    $appHtml = $this->render(Base::errorMessage("Please check the configuration of the layout module: You created an infinite loop!"));
+        #else {
             $modName = isset($_get['mod']) ? $_get['mod'] : 'layout';   // Parameter "mod" is the required module name.
             $nowrap = isset($_get['nowrap']) ? true : false;            // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
 
@@ -53,9 +53,9 @@ class App implements Application
             else {
                 $appHtml = $this->render($html);
             }
-        }
+        #}
 
-        echo $appHtml;
+        return $appHtml;
     }
 
     /**
@@ -69,9 +69,9 @@ class App implements Application
         $bodyOnload = Base::getBodyOnload();
         $marker['###MOD_LAYOUT###'] = $html;
 
-        $marker['###CONFIG_LANG###'] = $config['page_settings']['html_lang'];
+        $marker['###CONFIG_LANG###'] = $config['page_settings']['HTML_Lang'];
         $marker['###CONFIG_TITLE###'] = $config['page_settings']['Title'];
-        $marker['###CONFIG_CHARSET###'] = $config['page_settings']['meta_charset'];
+        $marker['###CONFIG_CHARSET###'] = $config['page_settings']['Meta_Charset'];
 
         $marker['###CONFIG_VIEWPORT###'] = $config['metatags']['Viewport'];
         $marker['###CONFIG_DESCRIPTION###'] = $config['metatags']['Description'];
@@ -113,5 +113,11 @@ class App implements Application
         }
 
         return $this->Template->parse($marker, $subpart);
+    }
+
+    public function __destruct()
+    {
+        unset($this->Template);
+        unset($this);
     }
 }

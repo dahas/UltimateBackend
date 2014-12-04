@@ -6,15 +6,14 @@ use UltimateBackend\lib\Base;
 use UltimateBackend\lib\Modules;
 
 
-class Tabbar implements Module
+class Tabbar extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tabbar/template/tabbar.html");
-        $this->properties = $props;
+        Module::__construct($props, $Tmpl);
+
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_tabbar/template/tabbar.html");
 
         Base::setHeaderFiles(array(
             'css' => array(

@@ -23,7 +23,7 @@ class Modules
             $name = $args[0];
         }
 
-        $properties = null;
+        $properties = array();
         $Tmpl = null;
 
         // If 2nd argument exists

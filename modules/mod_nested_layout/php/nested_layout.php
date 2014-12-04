@@ -6,15 +6,14 @@ use UltimateBackend\lib\Base;
 use UltimateBackend\lib\Modules;
 
 
-class Nested_Layout implements Module
+class Nested_Layout extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_nested_layout/template/nested_layout.html");
-        $this->properties = $props;
+        Module::__construct($props, $Tmpl);
+
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_nested_layout/template/nested_layout.html");
     }
 
     public function render()

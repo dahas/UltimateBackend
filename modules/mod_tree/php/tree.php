@@ -5,17 +5,15 @@ use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
 
 
-class Tree implements Module
+class Tree extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     public $data_link = "?mod=tree&task=loadData";
 
     public function __construct($props, Template $Tmpl = null)
     {
+        Module::__construct($props, $Tmpl);
+
         $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tree/template/tree.html");
-        $this->properties = $props;
 
         Base::setHeaderFiles(array(
             'css' => array(

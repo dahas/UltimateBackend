@@ -5,11 +5,8 @@ use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
 
 
-class Grid implements Module
+class Grid extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     private $column_headers = "Col1,Col2,Col3";
     private $column_widths = "200,100,*";
     private $column_align = "left,right,right";
@@ -20,8 +17,10 @@ class Grid implements Module
 
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_grid/template/grid.html");
-        $this->properties = $props;
+        Module::__construct($props, $Tmpl);
+
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_grid/template/grid.html");
 
         Base::setHeaderFiles(array(
             'css' => array(

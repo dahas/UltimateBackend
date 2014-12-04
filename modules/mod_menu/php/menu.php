@@ -5,17 +5,16 @@ use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
 
 
-class Menu implements Module
+class Menu extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
     public $menuID = "main_menu";
 
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_menu/template/menu.html");
-        $this->properties = $props;
+        Module::__construct($props, $Tmpl);
+
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_menu/template/menu.html");
 
         Base::setHeaderFiles(array(
             'css' => array(

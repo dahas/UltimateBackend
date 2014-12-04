@@ -4,24 +4,17 @@ use UltimateBackend\lib\interfaces\Module;
 use UltimateBackend\lib\Template;
 use UltimateBackend\lib\Base;
 use UltimateBackend\lib\Modules;
-use UltimateBackend\lib\DB;
 use UltimateBackend\lib\Recordset;
 
 
-class Products implements Module
+class Products extends Module
 {
-    private $properties = array();
-    private $Template = null;
-
-    private $db = null;
-
     public function __construct($props, Template $Tmpl = null)
     {
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_products/template/products.html");
-        $this->properties = $props;
+        Module::__construct($props, $Tmpl);
 
-        if(isset($this->properties['task']))
-            $this->db = DB::connect();
+        if (!$this->Template)
+            $this->Template = Template::load("modules/mod_products/template/products.html");
 
         Base::setHeaderFiles(array(
             'css' => array(
@@ -34,7 +27,8 @@ class Products implements Module
     }
 
     /**
-     * @return string HTML
+     * Task to render HTML
+     * @return string
      */
     public function render()
     {
@@ -60,16 +54,17 @@ class Products implements Module
      */
     public function loadProducts()
     {
+        $products = $this->DB->select(array(
+            "columns" => "*",
+            "from" => "ub_products",
+            "where" => "manufacturer_id=" . $this->properties['id']
+        ));
+
         $data = array();
-
-        $products = $this->db->select("
-            SELECT * FROM ub_products WHERE manufacturer_id={$this->properties['id']}
-        ");
-
-        while($product = $products->getRow(Recordset::FETCH_ASSOC)) {
-            $data[] = '{id: '.$product['id'].', data: ["'.utf8_encode($product['title']).'","'.$product['price'].'","'.$product['amount'].'"]}';
+        while ($product = $products->getRow(Recordset::FETCH_ASSOC)) {
+            $data[] = '{id: ' . $product['id'] . ', data: ["' . $product['title'] . '","' . $product['price'] . '","' . $product['amount'] . '"]}';
         }
-        $json = '{rows: ['.implode(",", $data).']};';
+        $json = '{rows: [' . implode(",", $data) . ']};';
 
         header('Content-Type: application/json');
         echo($json);
@@ -80,7 +75,12 @@ class Products implements Module
      */
     public function addProduct()
     {
-        echo $this->db->insert("INSERT INTO ub_products SET manufacturer_id={$this->properties['id']}");
+        $insertID = $this->DB->insert(array(
+            "into" => "ub_products",
+            "columns" => "manufacturer_id",
+            "values" => "{$this->properties['id']}"
+        ));
+        echo $insertID;
     }
 
     /**
@@ -88,8 +88,11 @@ class Products implements Module
      */
     public function editProduct()
     {
-        $value = utf8_decode($this->properties['fValue']);
-        echo $this->db->update("UPDATE ub_products SET {$this->properties['fName']}='$value' WHERE manufacturer_id={$this->properties['id']} AND id={$this->properties['rid']}");
+        echo $this->DB->update(array(
+            "table" => "ub_products",
+            "set" => "{$this->properties['fName']}='{$this->properties['fValue']}'",
+            "where" => "manufacturer_id={$this->properties['id']} AND id={$this->properties['rid']}"
+        ));
     }
 
     /**
@@ -97,13 +100,11 @@ class Products implements Module
      */
     public function deleteProducts()
     {
-        $rids = explode(",", $this->properties['rids']);
-        $del = array();
-        foreach($rids as $rid) {
-            if($this->db->delete("DELETE FROM ub_products WHERE manufacturer_id={$this->properties['id']} AND ID=$rid"))
-                $del[] = $rid;
-        }
-        echo implode(",",$del);
+        $rids = $this->properties['rids'];
+        echo $this->DB->delete(array(
+            "from" => "ub_products",
+            "where" => " id IN($rids)"
+        ));
     }
 
 }
