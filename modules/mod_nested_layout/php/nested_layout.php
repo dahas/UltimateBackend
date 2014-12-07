@@ -1,16 +1,14 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
-use UltimateBackend\lib\Modules;
 
 
 class Nested_Layout extends Module
 {
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_nested_layout/template/nested_layout.html");
@@ -18,7 +16,7 @@ class Nested_Layout extends Module
 
     public function render()
     {
-        Modules::factory("Layout");
+        Module::create("Layout");
 
         $marker['###CONTENT###'] = 'Here is the content!';
         $marker['###MOD_GRID###'] = "?mod=grid";

@@ -1,22 +1,21 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
-use UltimateBackend\lib\Modules;
+use UltimateBackend\lib\Tools;
 use UltimateBackend\lib\Recordset;
 
 
 class Products extends Module
 {
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         if (!$this->Template)
             $this->Template = Template::load("modules/mod_products/template/products.html");
 
-        Base::setHeaderFiles(array(
+        Tools::setHeaderFiles(array(
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxToolbar/codebase/skins/dhtmlxtoolbar_dhx_skyblue.css"
             ),
@@ -32,8 +31,8 @@ class Products extends Module
      */
     public function render()
     {
-        $ModGrid = Modules::factory("Grid");
-        $ModGrid->setDataLink("?mod=products&task=loadProducts&id=" . $this->properties['id']);
+        $ModGrid = Module::create("Grid");
+        $ModGrid->setDataLink("?mod=products&task=loadProducts&id=" . $this->get['id']);
         $ModGrid->setColumnHeaders("Title,Price,On Stock,");
         $ModGrid->setColumnWidths("200,80,80,*");
         $ModGrid->setColumnAlign("left,right,right,left");
@@ -42,9 +41,9 @@ class Products extends Module
         $ModGrid->setFooter("Footer asdasda ad asdas asd adas dsad,#cspan,#cspan,#cspan");
         $marker['###MOD_GRID###'] = $ModGrid->render();
 
-        $marker['###ADD_PRODUCT_URL###'] = "?mod=products&task=addProduct&id=" . $this->properties['id'];
-        $marker['###EDIT_PRODUCT_URL###'] = "?mod=products&task=editProduct&id=" . $this->properties['id'];
-        $marker['###DELETE_PRODUCTS_URL###'] = "?mod=products&task=deleteProducts&id=" . $this->properties['id'];
+        $marker['###ADD_PRODUCT_URL###'] = "?mod=products&task=addProduct&id=" . $this->get['id'];
+        $marker['###EDIT_PRODUCT_URL###'] = "?mod=products&task=editProduct&id=" . $this->get['id'];
+        $marker['###DELETE_PRODUCTS_URL###'] = "?mod=products&task=deleteProducts&id=" . $this->get['id'];
 
         return $this->Template->parse($marker);
     }
@@ -54,11 +53,11 @@ class Products extends Module
      */
     public function loadProducts()
     {
-        $products = $this->DB->select(array(
+        $products = $this->DB->select([
             "columns" => "*",
             "from" => "ub_products",
-            "where" => "manufacturer_id=" . $this->properties['id']
-        ));
+            "where" => "manufacturer_id=" . $this->get['id']
+        ]);
 
         $data = array();
         while ($product = $products->getRow(Recordset::FETCH_ASSOC)) {
@@ -75,11 +74,11 @@ class Products extends Module
      */
     public function addProduct()
     {
-        $insertID = $this->DB->insert(array(
+        $insertID = $this->DB->insert([
             "into" => "ub_products",
             "columns" => "manufacturer_id",
-            "values" => "{$this->properties['id']}"
-        ));
+            "values" => "{$this->get['id']}"
+        ]);
         echo $insertID;
     }
 
@@ -88,11 +87,11 @@ class Products extends Module
      */
     public function editProduct()
     {
-        echo $this->DB->update(array(
+        echo $this->DB->update([
             "table" => "ub_products",
-            "set" => "{$this->properties['fName']}='{$this->properties['fValue']}'",
-            "where" => "manufacturer_id={$this->properties['id']} AND id={$this->properties['rid']}"
-        ));
+            "set" => "{$this->get['fName']}='{$this->get['fValue']}'",
+            "where" => "manufacturer_id={$this->get['id']} AND id={$this->get['rid']}"
+        ]);
     }
 
     /**
@@ -100,11 +99,11 @@ class Products extends Module
      */
     public function deleteProducts()
     {
-        $rids = $this->properties['rids'];
-        echo $this->DB->delete(array(
+        $rids = $this->get['rids'];
+        echo $this->DB->delete([
             "from" => "ub_products",
             "where" => " id IN($rids)"
-        ));
+        ]);
     }
 
 }

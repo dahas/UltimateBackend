@@ -1,22 +1,21 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
+use UltimateBackend\lib\Tools;
 use UltimateBackend\lib\Recordset;
-use UltimateBackend\lib\Modules;
 
 
 class Layout extends Module
 {
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_layout/template/layout.html");
 
-        Base::setHeaderFiles(array(
+        Tools::setHeaderFiles(array(
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css",
@@ -38,7 +37,7 @@ class Layout extends Module
      */
     public function render()
     {
-        $ModMenu = Modules::factory("Menu");
+        $ModMenu = Module::create("Menu");
         $marker['###MAIN_MENU###'] = $ModMenu->render();
         $marker['###MAIN_MENU_ID###'] = $ModMenu->menuID;
 

@@ -1,21 +1,21 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
+use UltimateBackend\lib\Tools;
 
 
 class Tree extends Module
 {
     public $data_link = "?mod=tree&task=loadData";
 
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tree/template/tree.html");
 
-        Base::setHeaderFiles(array(
+        Tools::setHeaderFiles(array(
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/skins/dhtmlxTree_dhx_terrace.css"
             ),

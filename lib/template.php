@@ -42,7 +42,7 @@ class Template
         if (is_file($file))
             $this->html = file_get_contents($file);
         else
-            $this->html = Base::errorMessage("No valid template file: $file");
+            $this->html = Tools::errorMessage("No valid template file: $file");
     }
 
     public function getSubpart($marker)

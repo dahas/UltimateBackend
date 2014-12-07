@@ -1,21 +1,20 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
-use UltimateBackend\lib\Modules;
+use UltimateBackend\lib\Tools;
+use UltimateBackend\lib\Module;
 
 
 class Tabbar extends Module
 {
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_tabbar/template/tabbar.html");
 
-        Base::setHeaderFiles(array(
+        Tools::setHeaderFiles(array(
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css"
             ),
@@ -30,7 +29,7 @@ class Tabbar extends Module
 
 	public function render()
 	{
-        $ModDemo = Modules::factory("Demo");
+        $ModDemo = Module::create("Demo");
         $marker['###MOD_DEMO###'] = $ModDemo->render();
         return $this->Template->parse($marker);
 	}

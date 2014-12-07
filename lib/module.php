@@ -2,13 +2,39 @@
 
 namespace UltimateBackend\lib;
 
-class Modules
+
+/**
+ * Abstract Class Module
+ * @package UltimateBackend\lib\interfaces
+ */
+abstract class Module
 {
+    protected $get = array();
+    protected $Template = null;
+    protected $DB = null;
+    protected $config = null;
+
+    public function __construct($_get, Template $Tmpl = null)
+    {
+        $this->get = $_get;
+        $this->Template = $Tmpl;
+
+        $this->config = Tools::getConfig();
+
+        $this->DB = DB::getInstance(
+            $this->config['database']['DB_Name'],
+            $this->config['database']['Host'],
+            $this->config['database']['Username'],
+            $this->config['database']['Password'],
+            $this->config['database']['Charset']
+        );
+    }
+
     /**
      * @return object
      * @throws exception
      */
-    static public function factory()
+    static public function create()
     {
         $args = func_get_args();
         $types = array();
@@ -28,14 +54,14 @@ class Modules
 
         // If 2nd argument exists
         if (count($args) == 2) {
-            if ($types[1] != "array") {
+            if ($types[1] == "object" && get_class($args[1]) == "Template") {
                 $Tmpl = $args[1];
             } else {
                 $properties = $args[1];
             }
         } // If 3rd argument exists
         else if (count($args) >= 3) {
-            if ($types[1] != "array") {
+            if ($types[1] == "object" && get_class($args[1]) == "Template") {
                 $Tmpl = $args[1];
                 $properties = $args[2];
             } else {
@@ -53,7 +79,22 @@ class Modules
             return new ErrorMod($name);
         }
     }
+
+    abstract public function render();
+
+    public function __call($method, $args)
+    {
+        return Tools::errorMessage("Method $method() not defined!");
+    }
+
+    public function __destruct()
+    {
+        unset($this->Template);
+        unset($this->DB);
+        unset($this);
+    }
 }
+
 
 class ErrorMod
 {
@@ -66,6 +107,6 @@ class ErrorMod
 
     public function render()
     {
-        return Base::errorMessage("Module '$this->modName' not found!");
+        return Tools::errorMessage("Module '$this->modName' not found!");
     }
 }

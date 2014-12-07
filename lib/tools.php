@@ -3,13 +3,13 @@
 namespace UltimateBackend\lib;
 
 
-class Base
+class Tools
 {
     private static $iniFile = "config.ini";
     private static $config = array();
     private static $bodyOnload = '';
 
-    public static function construct()
+    public static function initConfig()
     {
         self::$config = parse_ini_file(self::$iniFile, true);
     }

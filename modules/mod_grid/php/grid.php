@@ -1,8 +1,8 @@
 <?php
 
-use UltimateBackend\lib\interfaces\Module;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
-use UltimateBackend\lib\Base;
+use UltimateBackend\lib\Tools;
 
 
 class Grid extends Module
@@ -15,14 +15,14 @@ class Grid extends Module
     private $footer = "";
     private $data_link = "?mod=grid&task=loadData";
 
-    public function __construct($props, Template $Tmpl = null)
+    public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($props, $Tmpl);
+        Module::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_grid/template/grid.html");
 
-        Base::setHeaderFiles(array(
+        Tools::setHeaderFiles(array(
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css"
             ),

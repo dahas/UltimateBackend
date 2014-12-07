@@ -10,8 +10,8 @@ function autoloader($class)
 spl_autoload_register(__NAMESPACE__ . '\autoloader');
 
 use UltimateBackend\lib\interfaces\Application;
-use UltimateBackend\lib\Base;
-use UltimateBackend\lib\Modules;
+use UltimateBackend\lib\Tools;
+use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
 
 
@@ -21,39 +21,33 @@ class App implements Application
 
     public function __construct()
     {
-        Base::construct(); // Loads config.ini
+        Tools::initConfig(); // Loads config.ini
         $this->Template = Template::load("app/template/app.html"); // Loads the html file and creates an template object.
     }
 
     /**
-     * Everything starts with this method.
+     * Output starts with this method.
      */
     public function execute()
     {
-         /*
-         * Base::parseQueryString() creates an array of the URI elements, and is filtering its values.
-         * For security reasons always use this function instead of directly accessing $_GET or $_REQUEST parameters!
-         */
-        $_get = Base::parseQueryString();
+        /*
+        * Base::parseQueryString() creates an array of the URI elements, and is filtering its values.
+        * For security reasons always use this function instead of directly accessing $_GET or $_REQUEST parameters!
+        */
+        $_get = Tools::parseQueryString();
 
-        $task = isset($_get['task']) ? $_get['task'] : "render";    // Paraameter "task" is required, so that the module knows, which task to execute.
+        $modName = isset($_get['mod']) ? $_get['mod'] : 'layout'; // Parameter "mod" is the required module name.
+        $nowrap = isset($_get['nowrap']) ? true : false; // Parameter "nowrap" displays module as it is, without wrapping it into app html. (Optional)
+        $task = isset($_get['task']) ? $_get['task'] : "render"; // Parameter "task" is required, so that the module knows, which task to execute.
 
-        // Avoid infinite loop before proceeding
-        #if(isset($_get['mod']) && strtolower($_get['mod']) == "layout" && $task=="render")
-        #    $appHtml = $this->render(Base::errorMessage("Please check the configuration of the layout module: You created an infinite loop!"));
-        #else {
-            $modName = isset($_get['mod']) ? $_get['mod'] : 'layout';   // Parameter "mod" is the required module name.
-            $nowrap = isset($_get['nowrap']) ? true : false;            // Parameter "nowrap" displays module as is, without wrapping it into app html. (Optional)
+        $Module = Module::create($modName, $_get); // The factory pattern returns an object of a module.
+        $html = $Module->$task(); // The module executes the requested task.
 
-            $Module = Modules::factory($modName, $_get);    // The factory pattern returns an object of a module.
-            $html = $Module->$task();                       // The module executes the requested task.
-
-            if ($nowrap || $task!="render")
-                $appHtml = $html;
-            else {
-                $appHtml = $this->render($html);
-            }
-        #}
+        if ($nowrap || $task != "render")
+            $appHtml = $html;
+        else {
+            $appHtml = $this->wrapIntoApp($html);
+        }
 
         return $appHtml;
     }
@@ -62,15 +56,16 @@ class App implements Application
      * @param $html
      * @return mixed|string
      */
-    public function render($html)
+    public function wrapIntoApp($html)
     {
-        $config = Base::getConfig();
-        $additionalFiles = Base::getHeaderFiles();
-        $bodyOnload = Base::getBodyOnload();
+        $config = Tools::getConfig();
+        $additionalFiles = Tools::getHeaderFiles();
+        $bodyOnload = Tools::getBodyOnload();
         $marker['###MOD_LAYOUT###'] = $html;
 
         $marker['###CONFIG_LANG###'] = $config['page_settings']['HTML_Lang'];
-        $marker['###CONFIG_TITLE###'] = $config['page_settings']['Title'];
+        #$marker['###CONFIG_TITLE###'] = $config['page_settings']['Title'];
+        $marker['###CONFIG_TITLE###'] = "Memory: " . round(memory_get_usage()/1024,2) . " KB";
         $marker['###CONFIG_CHARSET###'] = $config['page_settings']['Meta_Charset'];
 
         $marker['###CONFIG_VIEWPORT###'] = $config['metatags']['Viewport'];
@@ -79,7 +74,7 @@ class App implements Application
 
         $SubBodyTag = $this->Template->getSubpart('###BODY_ONLOAD###');
         $subpart['###BODY_ONLOAD###'] = '';
-        if($bodyOnload) {
+        if ($bodyOnload) {
             $markerBdOl['###ONLOAD###'] = $bodyOnload;
             $subpart['###BODY_ONLOAD###'] = $SubBodyTag->parse($markerBdOl);
         }

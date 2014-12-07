@@ -9,6 +9,7 @@ namespace UltimateBackend\lib;
  */
 class DB
 {
+    private static $instance = null;
     private $conn = null;
 
     /**
@@ -18,7 +19,7 @@ class DB
      * @param string $pass
      * @param string $charset
      */
-    public function __construct($db, $host = "localhost", $user = "root", $pass = "", $charset = "utf8")
+    protected function __construct($db, $host, $user, $pass, $charset)
     {
         $this->conn = mysqli_connect($host, $user, $pass)
         or die("Connection to database failed!");
@@ -27,6 +28,13 @@ class DB
         or die("Database doesn´t exist!");
 
         mysqli_set_charset($this->conn, $charset);
+    }
+
+    public static function getInstance($db, $host = "localhost", $user = "root", $pass = "", $charset = "utf8")
+    {
+        if(self::$instance==null)
+            self::$instance = new DB($db, $host, $user, $pass, $charset);
+        return self::$instance;
     }
 
     /**
@@ -122,7 +130,7 @@ class Recordset
     const FETCH_ROW = 0;
     const FETCH_ASSOC = 1;
 
-    public function __construct($rs)
+    public  function __construct($rs)
     {
         $this->recordset = $rs;
     }
