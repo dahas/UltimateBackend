@@ -12,22 +12,13 @@ abstract class Module
     protected $_get = array();
     protected $config = array();
     protected $Template = null;
-    protected $DB = null;
 
-    public function __construct($_get, Template $Tmpl = null)
+    public function __construct(Template $Tmpl = null)
     {
-        $this->_get = $_get;
         $this->Template = $Tmpl;
 
+        $this->_get = Tools::parseQueryString();
         $this->config = Tools::getConfig();
-
-        $this->DB = DB::getInstance(
-            $this->config['database']['DB_Name'],
-            $this->config['database']['Host'],
-            $this->config['database']['Username'],
-            $this->config['database']['Password'],
-            $this->config['database']['Charset']
-        );
     }
 
     /**
@@ -49,24 +40,11 @@ abstract class Module
             $name = $args[0];
         }
 
-        $properties = array();
-        $Tmpl = null;
-
         // If 2nd argument exists
+        $Tmpl = null;
         if (count($args) == 2) {
-            if ($types[1] == "object" && get_class($args[1]) == "Template") {
+            if ($types[1] == "object" && get_class($args[1]) == __NAMESPACE__ . "\Template") {
                 $Tmpl = $args[1];
-            } else {
-                $properties = $args[1];
-            }
-        } // If 3rd argument exists
-        else if (count($args) >= 3) {
-            if ($types[1] == "object" && get_class($args[1]) == "Template") {
-                $Tmpl = $args[1];
-                $properties = $args[2];
-            } else {
-                $properties = $args[1];
-                $Tmpl = $args[2];
             }
         }
 
@@ -74,7 +52,7 @@ abstract class Module
 
         if (is_file($modFile)) {
             require_once $modFile;
-            return new $name($properties, $Tmpl);
+            return new $name($Tmpl);
         } else {
             return new ErrorMod($name);
         }
@@ -90,7 +68,6 @@ abstract class Module
     public function __destruct()
     {
         unset($this->Template);
-        unset($this->DB);
         unset($this);
     }
 }

@@ -15,9 +15,9 @@ class Grid extends Module
     private $footer = "";
     private $data_link = "?mod=grid&task=loadData";
 
-    public function __construct($_get, Template $Tmpl = null)
+    public function __construct(Template $Tmpl = null)
     {
-        parent::__construct($_get, $Tmpl);
+        parent::__construct($Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_grid/template/grid.html");

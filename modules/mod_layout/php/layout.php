@@ -2,15 +2,18 @@
 
 use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
+use UltimateBackend\lib\DB;
 use UltimateBackend\lib\Tools;
 use UltimateBackend\lib\Recordset;
 
 
 class Layout extends Module
 {
-    public function __construct($_get, Template $Tmpl = null)
+    private $DB = null;
+
+    public function __construct(Template $Tmpl = null)
     {
-        parent::__construct($_get, $Tmpl);
+        parent::__construct($Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_layout/template/layout.html");
@@ -29,6 +32,14 @@ class Layout extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/ext/dhtmlxtree_json.js"
             )
         ]);
+
+        $this->DB = DB::getInstance(
+            $this->config['database']['DB_Name'],
+            $this->config['database']['Host'],
+            $this->config['database']['Username'],
+            $this->config['database']['Password'],
+            $this->config['database']['Charset']
+        );
     }
 
     /**

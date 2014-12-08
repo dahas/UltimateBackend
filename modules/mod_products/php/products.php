@@ -2,15 +2,18 @@
 
 use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
+use UltimateBackend\lib\DB;
 use UltimateBackend\lib\Tools;
 use UltimateBackend\lib\Recordset;
 
 
 class Products extends Module
 {
-    public function __construct($_get, Template $Tmpl = null)
+    private $DB = null;
+
+    public function __construct(Template $Tmpl = null)
     {
-        parent::__construct($_get, $Tmpl);
+        parent::__construct($Tmpl);
 
         if (!$this->Template)
             $this->Template = Template::load("modules/mod_products/template/products.html");
@@ -23,6 +26,14 @@ class Products extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxToolbar/codebase/dhtmlxtoolbar.js"
             )
         ]);
+
+        $this->DB = DB::getInstance(
+            $this->config['database']['DB_Name'],
+            $this->config['database']['Host'],
+            $this->config['database']['Username'],
+            $this->config['database']['Password'],
+            $this->config['database']['Charset']
+        );
     }
 
     /**
@@ -38,7 +49,7 @@ class Products extends Module
         $ModGrid->setColumnAlign("left,right,right,left");
         $ModGrid->setColumnTypes("ed,ed,ed,ro");
         $ModGrid->setColumnSorting("str,int,int,int");
-        #$ModGrid->setFooter("Footer asdasda ad asdas asd adas dsad,#cspan,#cspan,#cspan");
+        $ModGrid->setFooter("123144,#cspan,#cspan,#cspan");
         $marker['###MOD_GRID###'] = $ModGrid->render();
 
         $marker['###ADD_PRODUCT_URL###'] = "?mod=products&task=addProduct&id=" . $this->_get['id'];

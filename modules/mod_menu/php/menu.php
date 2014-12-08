@@ -9,9 +9,9 @@ class Menu extends Module
 {
     public $menuID = "main_menu";
 
-    public function __construct($_get, Template $Tmpl = null)
+    public function __construct(Template $Tmpl = null)
     {
-        parent::__construct($_get, $Tmpl);
+        parent::__construct($Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_menu/template/menu.html");

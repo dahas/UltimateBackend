@@ -9,11 +9,12 @@ class Tree extends Module
 {
     public $data_link = "?mod=tree&task=loadData";
 
-    public function __construct($_get, Template $Tmpl = null)
+    public function __construct(Template $Tmpl = null)
     {
-        parent::__construct($_get, $Tmpl);
+        parent::__construct($Tmpl);
 
-        $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tree/template/tree.html");
+        if(!$this->Template)
+            $this->Template = Template::load("modules/mod_tree/template/tree.html");
 
         Tools::setHeaderFiles([
             'css' => array(

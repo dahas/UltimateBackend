@@ -2,19 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21a2df88-2d46-4e74-a677-bb34b2c3eb57" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\xampp\htdocs\UltimateBackend\lib\interfaces\application.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/php/app.php" afterPath="$PROJECT_DIR$/app/php/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/db.php" afterPath="$PROJECT_DIR$/lib/db.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_demo/php/demo.php" afterPath="$PROJECT_DIR$/modules/mod_demo/php/demo.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_grid/php/grid.php" afterPath="$PROJECT_DIR$/modules/mod_grid/php/grid.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_layout/php/layout.php" afterPath="$PROJECT_DIR$/modules/mod_layout/php/layout.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_menu/php/menu.php" afterPath="$PROJECT_DIR$/modules/mod_menu/php/menu.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/module.php" afterPath="$PROJECT_DIR$/lib/module.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php" afterPath="$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_products/php/products.php" afterPath="$PROJECT_DIR$/modules/mod_products/php/products.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php" afterPath="$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_demo/template/test.html" afterPath="$PROJECT_DIR$/modules/mod_demo/template/test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_test/php/test.php" afterPath="$PROJECT_DIR$/modules/mod_test/php/test.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/mod_tree/php/tree.php" afterPath="$PROJECT_DIR$/modules/mod_tree/php/tree.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -40,19 +36,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="db.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/db.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="11" selection-start="151" selection-end="151" vertical-scroll-proportion="-2.6923077" vertical-offset="134" max-vertical-offset="2788">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="module.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/module.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="37" selection-start="977" selection-end="977" vertical-scroll-proportion="7.1923075" vertical-offset="884" max-vertical-offset="2057">
+            <state line="70" column="0" selection-start="1640" selection-end="1640" vertical-scroll-proportion="-18.307692" vertical-offset="714" max-vertical-offset="1666">
               <folding />
             </state>
           </provider>
@@ -61,16 +48,7 @@
       <file leaf-file-name="layout.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mod_layout/php/layout.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="0" selection-start="1499" selection-end="1499" vertical-scroll-proportion="-7.1923075" vertical-offset="425" max-vertical-offset="2414">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/mod_menu/php/menu.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="396" selection-end="396" vertical-scroll-proportion="-7.1923075" vertical-offset="119" max-vertical-offset="714">
+            <state line="12" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.07692308" vertical-offset="206" max-vertical-offset="2652">
               <folding>
                 <element signature="e#7#38#0" expanded="true" />
               </folding>
@@ -78,48 +56,74 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="tools.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/tools.php">
+      <file leaf-file-name="menu.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_menu/php/menu.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="0" selection-start="1078" selection-end="1078" vertical-scroll-proportion="-7.5384617" vertical-offset="637" max-vertical-offset="2040">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/php/app.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="0" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.76545453" vertical-offset="327" max-vertical-offset="2108">
+            <state line="13" column="28" selection-start="258" selection-end="258" vertical-scroll-proportion="-8.5" vertical-offset="0" max-vertical-offset="714">
               <folding>
-                <element signature="e#214#244#0" expanded="true" />
+                <element signature="e#7#38#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="template.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/template.php">
+      <file leaf-file-name="nested_layout.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="148" column="0" selection-start="4220" selection-end="4220" vertical-scroll-proportion="-11.846154" vertical-offset="2208" max-vertical-offset="2771">
+            <state line="10" column="35" selection-start="208" selection-end="208" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="561">
+              <folding>
+                <element signature="e#7#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="grid.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_grid/php/grid.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="28" selection-start="525" selection-end="525" vertical-scroll-proportion="-2.25" vertical-offset="118" max-vertical-offset="3604">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/template/app.html">
+      <file leaf-file-name="products.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_products/php/products.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="7" selection-start="758" selection-end="758" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="408">
-              <folding />
+            <state line="11" column="23" selection-start="224" selection-end="224" vertical-scroll-proportion="-2.0384614" vertical-offset="134" max-vertical-offset="2125">
+              <folding>
+                <element signature="e#7#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="demo.php" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="tabbar.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="35" selection-start="232" selection-end="232" vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="731">
+              <folding>
+                <element signature="e#7#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="demo.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/mod_demo/php/demo.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="8" selection-start="245" selection-end="245" vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="782">
+            <state line="11" column="23" selection-start="220" selection-end="220" vertical-scroll-proportion="0.10406504" vertical-offset="123" max-vertical-offset="969">
+              <folding>
+                <element signature="e#7#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tree.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/mod_tree/php/tree.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="12" selection-start="325" selection-end="325" vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="1088">
               <folding>
                 <element signature="e#7#38#0" expanded="true" />
               </folding>
@@ -130,7 +134,7 @@
       <file leaf-file-name="test.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/mod_test/php/test.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="0" selection-start="592" selection-end="592" vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="884">
+            <state line="26" column="34" selection-start="613" selection-end="613" vertical-scroll-proportion="-17.0" vertical-offset="0" max-vertical-offset="884">
               <folding>
                 <element signature="e#7#38#0" expanded="true" />
               </folding>
@@ -186,22 +190,22 @@
         <option value="$PROJECT_DIR$/lib/tools.php" />
         <option value="$PROJECT_DIR$/modules/mod_demo/template/demo.html" />
         <option value="db-console:/b9baaceb/af0dcadf-ae46-4c4f-9e40-04db349e5eb6/" />
-        <option value="$PROJECT_DIR$/modules/mod_layout/php/layout.php" />
-        <option value="$PROJECT_DIR$/modules/mod_grid/php/grid.php" />
-        <option value="$PROJECT_DIR$/modules/mod_menu/php/menu.php" />
-        <option value="$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php" />
-        <option value="$PROJECT_DIR$/modules/mod_products/php/products.php" />
-        <option value="$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php" />
-        <option value="$PROJECT_DIR$/modules/mod_tree/php/tree.php" />
         <option value="$PROJECT_DIR$/lib/interfaces/application.php" />
         <option value="$PROJECT_DIR$/modules/mod_demo/template/test.html" />
-        <option value="$PROJECT_DIR$/modules/mod_test/php/test.php" />
         <option value="$PROJECT_DIR$/app/template/app.html" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/lib/db.php" />
-        <option value="$PROJECT_DIR$/modules/mod_demo/php/demo.php" />
+        <option value="$PROJECT_DIR$/modules/mod_test/php/test.php" />
         <option value="$PROJECT_DIR$/app/php/app.php" />
+        <option value="$PROJECT_DIR$/modules/mod_grid/php/grid.php" />
+        <option value="$PROJECT_DIR$/modules/mod_menu/php/menu.php" />
+        <option value="$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php" />
+        <option value="$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php" />
+        <option value="$PROJECT_DIR$/modules/mod_tree/php/tree.php" />
         <option value="$PROJECT_DIR$/lib/module.php" />
+        <option value="$PROJECT_DIR$/modules/mod_layout/php/layout.php" />
+        <option value="$PROJECT_DIR$/modules/mod_products/php/products.php" />
+        <option value="$PROJECT_DIR$/modules/mod_demo/php/demo.php" />
       </list>
     </option>
   </component>
@@ -296,123 +300,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="php" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mod_demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="php" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="UltimateBackend" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="template" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -577,7 +465,11 @@
       <created>1417979679059</created>
       <updated>1417979679059</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="New handling of $_get parameters">
+      <created>1418039428276</created>
+      <updated>1418039428276</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -592,12 +484,12 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32777777" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2028754" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18370607" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18317358" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31514478" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18317358" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31514478" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31625834" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25777778" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2572383" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -626,11 +518,12 @@
     <MESSAGE value="Added DB class" />
     <MESSAGE value="New DB functions for Select, Insert, Update and Delete" />
     <MESSAGE value="Base Class is now Tools" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base Class is now Tools" />
+    <MESSAGE value="New handling of $_get parameters" />
+    <option name="LAST_COMMIT_MESSAGE" value="New handling of $_get parameters" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="56" />
+      <option name="time" value="59" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -877,49 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_grid/php/grid.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="37" selection-start="1079" selection-end="1079" vertical-scroll-proportion="-7.1923075" vertical-offset="408" max-vertical-offset="3604">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="37" selection-start="400" selection-end="400" vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="561">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_products/php/products.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="37" selection-start="859" selection-end="859" vertical-scroll-proportion="-19.461538" vertical-offset="21" max-vertical-offset="1938">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="37" selection-start="1042" selection-end="1042" vertical-scroll-proportion="-18.961538" vertical-offset="0" max-vertical-offset="731">
-          <folding>
-            <element signature="e#7#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_tree/php/tree.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="37" selection-start="963" selection-end="963" vertical-scroll-proportion="-18.961538" vertical-offset="0" max-vertical-offset="1071">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/mod_demo/template/test.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="21" selection-start="110" selection-end="110" vertical-scroll-proportion="-0.65384614" vertical-offset="0" max-vertical-offset="238">
@@ -927,32 +777,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_test/php/test.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="0" selection-start="592" selection-end="592" vertical-scroll-proportion="-16.346153" vertical-offset="0" max-vertical-offset="884">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/template/app.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="17" column="7" selection-start="758" selection-end="758" vertical-scroll-proportion="-11.115385" vertical-offset="0" max-vertical-offset="408">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/template.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="148" column="0" selection-start="4220" selection-end="4220" vertical-scroll-proportion="-11.846154" vertical-offset="2208" max-vertical-offset="2771">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/db.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="11" selection-start="151" selection-end="151" vertical-scroll-proportion="-2.6923077" vertical-offset="134" max-vertical-offset="2788">
           <folding />
         </state>
       </provider>
@@ -964,22 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_layout/php/layout.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="0" selection-start="1499" selection-end="1499" vertical-scroll-proportion="-7.1923075" vertical-offset="425" max-vertical-offset="2414">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_menu/php/menu.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="396" selection-end="396" vertical-scroll-proportion="-7.1923075" vertical-offset="119" max-vertical-offset="714">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/tools.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="49" column="0" selection-start="1078" selection-end="1078" vertical-scroll-proportion="-7.5384617" vertical-offset="637" max-vertical-offset="2040">
@@ -987,27 +798,111 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/mod_demo/php/demo.php">
+    <entry file="file://$PROJECT_DIR$/lib/db.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="8" selection-start="245" selection-end="245" vertical-scroll-proportion="-7.8461537" vertical-offset="0" max-vertical-offset="782">
-          <folding>
-            <element signature="e#7#38#0" expanded="true" />
-          </folding>
+        <state line="118" column="35" selection-start="3210" selection-end="3210" vertical-scroll-proportion="-7.1923075" vertical-offset="1819" max-vertical-offset="2788">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/module.php">
+    <entry file="file://$PROJECT_DIR$/lib/template.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="37" selection-start="977" selection-end="977" vertical-scroll-proportion="7.1923075" vertical-offset="884" max-vertical-offset="2057">
+        <state line="25" column="0" selection-start="357" selection-end="357" vertical-scroll-proportion="-7.1923075" vertical-offset="238" max-vertical-offset="2771">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/php/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1636" selection-end="1636" vertical-scroll-proportion="0.76545453" vertical-offset="327" max-vertical-offset="2108">
+        <state line="37" column="75" selection-start="1041" selection-end="1041" vertical-scroll-proportion="-14.384615" vertical-offset="255" max-vertical-offset="2091">
           <folding>
             <element signature="e#214#244#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_grid/php/grid.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="28" selection-start="525" selection-end="525" vertical-scroll-proportion="-2.25" vertical-offset="118" max-vertical-offset="3604">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_menu/php/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="28" selection-start="258" selection-end="258" vertical-scroll-proportion="-8.5" vertical-offset="0" max-vertical-offset="714">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_nested_layout/php/nested_layout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="35" selection-start="208" selection-end="208" vertical-scroll-proportion="-6.5384617" vertical-offset="0" max-vertical-offset="561">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_test/php/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="34" selection-start="613" selection-end="613" vertical-scroll-proportion="-17.0" vertical-offset="0" max-vertical-offset="884">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_tree/php/tree.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="12" selection-start="325" selection-end="325" vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="1088">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_tabbar/php/tabbar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="35" selection-start="232" selection-end="232" vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="731">
+          <folding>
+            <element signature="e#7#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/module.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="0" selection-start="1640" selection-end="1640" vertical-scroll-proportion="-18.307692" vertical-offset="714" max-vertical-offset="1666">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_layout/php/layout.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="223" selection-end="223" vertical-scroll-proportion="0.07692308" vertical-offset="206" max-vertical-offset="2652">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_products/php/products.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="224" selection-end="224" vertical-scroll-proportion="-2.0384614" vertical-offset="134" max-vertical-offset="2125">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/mod_demo/php/demo.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="23" selection-start="220" selection-end="220" vertical-scroll-proportion="0.10406504" vertical-offset="123" max-vertical-offset="969">
+          <folding>
+            <element signature="e#7#38#0" expanded="true" />
           </folding>
         </state>
       </provider>

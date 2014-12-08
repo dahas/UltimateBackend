@@ -26,7 +26,6 @@ class App extends Module
         * Template::load()lLoads the html file and creates an template object.
         */
         parent::__construct(
-            Tools::parseQueryString(),
             Template::load("app/template/app.html")
         );
     }
@@ -40,7 +39,7 @@ class App extends Module
         $nowrap = isset($this->_get['nowrap']) ? true : false; // Parameter "nowrap" displays module as it is, without wrapping it into app html. (Optional)
         $task = isset($this->_get['task']) ? $this->_get['task'] : "render"; // Parameter "task" is required, so that the module knows, which task to execute.
 
-        $Module = Module::create($modName, $this->_get); // The factory pattern returns an object of a module.
+        $Module = Module::create($modName); // The factory pattern returns an object of a module.
         $html = $Module->$task(); // The module executes the requested task.
 
         if ($nowrap || $task != "render")
