@@ -116,8 +116,8 @@ class DB
 
     public function __destruct()
     {
-        mysqli_close($this->conn);
-        unset($this);
+        if(mysqli_close($this->conn))
+            $this->conn = null;
     }
 
 }
@@ -129,6 +129,7 @@ class Recordset
 
     const FETCH_ROW = 0;
     const FETCH_ASSOC = 1;
+    const FETCH_OBJECT = 2;
 
     public  function __construct($rs)
     {
@@ -144,6 +145,8 @@ class Recordset
     {
         if ($fetch === self::FETCH_ASSOC)
             return mysqli_fetch_assoc($this->recordset);
+        if ($fetch === self::FETCH_OBJECT)
+            return mysqli_fetch_object($this->recordset);
         return mysqli_fetch_row($this->recordset);
     }
 

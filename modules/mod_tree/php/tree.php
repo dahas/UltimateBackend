@@ -11,11 +11,11 @@ class Tree extends Module
 
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         $this->Template = $Tmpl ? $Tmpl : Template::load("modules/mod_tree/template/tree.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/skins/dhtmlxTree_dhx_terrace.css"
             ),
@@ -24,10 +24,10 @@ class Tree extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/dhtmlxtree.js",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/ext/dhtmlxtree_json.js"
             )
-        ));
+        ]);
     }
 
-	public function render()
+	public function render($html = "")
 	{
         $marker['###DATA_URL###'] = $this->data_link;
         return $this->Template->parse($marker);

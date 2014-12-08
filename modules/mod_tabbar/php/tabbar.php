@@ -9,12 +9,12 @@ class Tabbar extends Module
 {
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_tabbar/template/tabbar.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css"
             ),
@@ -24,10 +24,10 @@ class Tabbar extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/dhtmlxtabbar.js",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/dhtmlxtabbar_start.js"
             )
-        ));
+        ]);
     }
 
-	public function render()
+	public function render($html = "")
 	{
         $ModDemo = Module::create("Demo");
         $marker['###MOD_DEMO###'] = $ModDemo->render();

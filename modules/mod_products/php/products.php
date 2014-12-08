@@ -10,40 +10,40 @@ class Products extends Module
 {
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if (!$this->Template)
             $this->Template = Template::load("modules/mod_products/template/products.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxToolbar/codebase/skins/dhtmlxtoolbar_dhx_skyblue.css"
             ),
             'js' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxToolbar/codebase/dhtmlxtoolbar.js"
             )
-        ));
+        ]);
     }
 
     /**
      * Task to render HTML
      * @return string
      */
-    public function render()
+    public function render($html = "")
     {
         $ModGrid = Module::create("Grid");
-        $ModGrid->setDataLink("?mod=products&task=loadProducts&id=" . $this->get['id']);
+        $ModGrid->setDataLink("?mod=products&task=loadProducts&id=" . $this->_get['id']);
         $ModGrid->setColumnHeaders("Title,Price,On Stock,");
         $ModGrid->setColumnWidths("200,80,80,*");
         $ModGrid->setColumnAlign("left,right,right,left");
         $ModGrid->setColumnTypes("ed,ed,ed,ro");
         $ModGrid->setColumnSorting("str,int,int,int");
-        $ModGrid->setFooter("Footer asdasda ad asdas asd adas dsad,#cspan,#cspan,#cspan");
+        #$ModGrid->setFooter("Footer asdasda ad asdas asd adas dsad,#cspan,#cspan,#cspan");
         $marker['###MOD_GRID###'] = $ModGrid->render();
 
-        $marker['###ADD_PRODUCT_URL###'] = "?mod=products&task=addProduct&id=" . $this->get['id'];
-        $marker['###EDIT_PRODUCT_URL###'] = "?mod=products&task=editProduct&id=" . $this->get['id'];
-        $marker['###DELETE_PRODUCTS_URL###'] = "?mod=products&task=deleteProducts&id=" . $this->get['id'];
+        $marker['###ADD_PRODUCT_URL###'] = "?mod=products&task=addProduct&id=" . $this->_get['id'];
+        $marker['###EDIT_PRODUCT_URL###'] = "?mod=products&task=editProduct&id=" . $this->_get['id'];
+        $marker['###DELETE_PRODUCTS_URL###'] = "?mod=products&task=deleteProducts&id=" . $this->_get['id'];
 
         return $this->Template->parse($marker);
     }
@@ -56,7 +56,7 @@ class Products extends Module
         $products = $this->DB->select([
             "columns" => "*",
             "from" => "ub_products",
-            "where" => "manufacturer_id=" . $this->get['id']
+            "where" => "manufacturer_id=" . $this->_get['id']
         ]);
 
         $data = array();
@@ -74,12 +74,11 @@ class Products extends Module
      */
     public function addProduct()
     {
-        $insertID = $this->DB->insert([
+        echo $this->DB->insert([
             "into" => "ub_products",
             "columns" => "manufacturer_id",
-            "values" => "{$this->get['id']}"
+            "values" => "{$this->_get['id']}"
         ]);
-        echo $insertID;
     }
 
     /**
@@ -89,8 +88,8 @@ class Products extends Module
     {
         echo $this->DB->update([
             "table" => "ub_products",
-            "set" => "{$this->get['fName']}='{$this->get['fValue']}'",
-            "where" => "manufacturer_id={$this->get['id']} AND id={$this->get['rid']}"
+            "set" => "{$this->_get['fName']}='{$this->_get['fValue']}'",
+            "where" => "manufacturer_id={$this->_get['id']} AND id={$this->_get['rid']}"
         ]);
     }
 
@@ -99,7 +98,7 @@ class Products extends Module
      */
     public function deleteProducts()
     {
-        $rids = $this->get['rids'];
+        $rids = $this->_get['rids'];
         echo $this->DB->delete([
             "from" => "ub_products",
             "where" => " id IN($rids)"

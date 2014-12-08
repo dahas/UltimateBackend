@@ -10,12 +10,12 @@ class Layout extends Module
 {
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_layout/template/layout.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxLayout/codebase/skins/dhtmlxlayout_dhx_skyblue.css",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTabbar/codebase/skins/dhtmlxtabbar_dhx_skyblue.css",
@@ -28,14 +28,14 @@ class Layout extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/dhtmlxtree.js",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxTree/codebase/ext/dhtmlxtree_json.js"
             )
-        ));
+        ]);
     }
 
     /**
      * Task to parse and return a valid html file.
      * @return string HTML
      */
-    public function render()
+    public function render($html = "")
     {
         $ModMenu = Module::create("Menu");
         $marker['###MAIN_MENU###'] = $ModMenu->render();
@@ -57,12 +57,12 @@ class Layout extends Module
      */
     public function loadTree()
     {
-        $companies = $this->DB->select(array(
+        $companies = $this->DB->select([
             "columns" => "h.id, h.name, COUNT(b.id) AS hasBranch",
             "from" => "ub_companies_hq h LEFT JOIN ub_companies_branch b ON h.id = b.hq_id",
             "groupBy" => "h.name",
             "orderBy" => "h.id"
-        ));
+        ]);
 
         $x = 0;
         while ($company = $companies->getRow(Recordset::FETCH_ASSOC)) {
@@ -70,12 +70,12 @@ class Layout extends Module
             if ($company['hasBranch']) {
                 $node = '{id: "' . $company['id'] . '", text: "' . $company['name'] . '"' . $selected . ', item: [';
 
-                $branches = $this->DB->select(array(
+                $branches = $this->DB->select([
                     "columns" => "id, name",
                     "from" => "ub_companies_branch",
                     "where" => "hq_id = " . $company['id'],
                     "orderBy" => "id"
-                ));
+                ]);
 
                 while ($branch = $branches->getRow(Recordset::FETCH_ASSOC)) {
                     $node_items[] = $this->createTreeItems($company['id'] . "|" . $branch['id'], $branch['name'], false);

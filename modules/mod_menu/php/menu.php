@@ -11,12 +11,12 @@ class Menu extends Module
 
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_menu/template/menu.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/skins/dhtmlxmenu_dhx_skyblue.css"
             ),
@@ -24,10 +24,10 @@ class Menu extends Module
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/dhtmlxmenu.js",
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxMenu/codebase/ext/dhtmlxmenu_ext.js"
             )
-        ));
+        ]);
     }
 
-    public function render()
+    public function render($html = "")
     {
         $marker['###MENU_ID###'] = $this->menuID;
         return $this->Template->parse($marker);

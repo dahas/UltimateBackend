@@ -9,14 +9,14 @@ namespace UltimateBackend\lib;
  */
 abstract class Module
 {
-    protected $get = array();
+    protected $_get = array();
+    protected $config = array();
     protected $Template = null;
     protected $DB = null;
-    protected $config = null;
 
     public function __construct($_get, Template $Tmpl = null)
     {
-        $this->get = $_get;
+        $this->_get = $_get;
         $this->Template = $Tmpl;
 
         $this->config = Tools::getConfig();
@@ -34,7 +34,7 @@ abstract class Module
      * @return object
      * @throws exception
      */
-    static public function create()
+    public static function create()
     {
         $args = func_get_args();
         $types = array();
@@ -80,7 +80,7 @@ abstract class Module
         }
     }
 
-    abstract public function render();
+    abstract public function render($html = "");
 
     public function __call($method, $args)
     {
@@ -96,6 +96,10 @@ abstract class Module
 }
 
 
+/**
+ * Class ErrorMod
+ * @package UltimateBackend\lib
+ */
 class ErrorMod
 {
     private $modName = "";

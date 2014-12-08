@@ -17,25 +17,25 @@ class Grid extends Module
 
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_grid/template/grid.html");
 
-        Tools::setHeaderFiles(array(
+        Tools::setHeaderFiles([
             'css' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxGrid/codebase/skins/dhtmlxgrid_dhx_skyblue.css"
             ),
             'js' => array(
                 "resources/dhtmlxSuite_v403_std/sources/dhtmlxGrid/codebase/dhtmlxgrid.js"
             )
-        ));
+        ]);
     }
 
     /**
      * @return string HTML
      */
-    public function render()
+    public function render($html = "")
     {
         $marker['###COLUMN_HEADERS###'] = $this->column_headers;
         $marker['###COLUMN_WIDTHS###'] = $this->column_widths;

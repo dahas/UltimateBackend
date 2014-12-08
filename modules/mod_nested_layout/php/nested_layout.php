@@ -8,13 +8,13 @@ class Nested_Layout extends Module
 {
     public function __construct($_get, Template $Tmpl = null)
     {
-        Module::__construct($_get, $Tmpl);
+        parent::__construct($_get, $Tmpl);
 
         if(!$this->Template)
             $this->Template = Template::load("modules/mod_nested_layout/template/nested_layout.html");
     }
 
-    public function render()
+    public function render($html = "")
     {
         Module::create("Layout");
 
