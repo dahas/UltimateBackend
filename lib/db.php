@@ -12,6 +12,12 @@ class DB
     private static $instance = null;
     private $conn = null;
 
+    private $db;
+    private $host;
+    private $user;
+    private $pass;
+    private $charset;
+
     /**
      * @param string $db
      * @param string $host
@@ -19,21 +25,29 @@ class DB
      * @param string $pass
      * @param string $charset
      */
-    protected function __construct($db, $host, $user, $pass, $charset)
+    protected function __construct()
     {
-        $this->conn = mysqli_connect($host, $user, $pass)
+        $config = Tools::getConfig();
+
+        $this->db = $config['database']['DB_Name'];
+        $this->host = $config['database']['Host'];
+        $this->user = $config['database']['Username'];
+        $this->pass = $config['database']['Password'];
+        $this->charset = $config['database']['Charset'];
+
+        $this->conn = mysqli_connect($this->host, $this->user, $this->pass)
         or die("Connection to database failed!");
 
-        mysqli_select_db($this->conn, $db)
+        mysqli_select_db($this->conn, $this->db)
         or die("Database doesn´t exist!");
 
-        mysqli_set_charset($this->conn, $charset);
+        mysqli_set_charset($this->conn, $this->charset);
     }
 
-    public static function getInstance($db, $host = "localhost", $user = "root", $pass = "", $charset = "utf8")
+    public static function getInstance()
     {
-        if(self::$instance==null)
-            self::$instance = new DB($db, $host, $user, $pass, $charset);
+        if (self::$instance == null)
+            self::$instance = new DB();
         return self::$instance;
     }
 
@@ -116,7 +130,7 @@ class DB
 
     public function __destruct()
     {
-        if(mysqli_close($this->conn))
+        if (mysqli_close($this->conn))
             $this->conn = null;
     }
 
@@ -131,7 +145,7 @@ class Recordset
     const FETCH_ASSOC = 1;
     const FETCH_OBJECT = 2;
 
-    public  function __construct($rs)
+    public function __construct($rs)
     {
         $this->recordset = $rs;
     }

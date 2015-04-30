@@ -2,6 +2,7 @@
 
 use UltimateBackend\lib\Module;
 use UltimateBackend\lib\Template;
+use UltimateBackend\lib\DB;
 use UltimateBackend\lib\Tools;
 use UltimateBackend\lib\Recordset;
 
@@ -18,6 +19,8 @@ class Test extends Module
         Tools::setHeaderFiles([
             'css' => array("modules/mod_test/template/test.css")
         ]);
+
+        $this->DB = DB::getInstance();
     }
 
 	public function render($html = "")

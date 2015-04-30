@@ -9,13 +9,11 @@ use UltimateBackend\lib\Recordset;
 
 class Layout extends Module
 {
-    private $DB = null;
-
     public function __construct(Template $Tmpl = null)
     {
         parent::__construct($Tmpl);
 
-        if(!$this->Template)
+        if(!$Tmpl)
             $this->Template = Template::load("modules/mod_layout/template/layout.html");
 
         Tools::setHeaderFiles([
@@ -33,13 +31,7 @@ class Layout extends Module
             )
         ]);
 
-        $this->DB = DB::getInstance(
-            $this->config['database']['DB_Name'],
-            $this->config['database']['Host'],
-            $this->config['database']['Username'],
-            $this->config['database']['Password'],
-            $this->config['database']['Charset']
-        );
+        $this->DB = DB::getInstance();
     }
 
     /**

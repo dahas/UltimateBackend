@@ -12,6 +12,7 @@ abstract class Module
     protected $_get = array();
     protected $config = array();
     protected $Template = null;
+    protected $DB = null;
 
     public function __construct(Template $Tmpl = null)
     {

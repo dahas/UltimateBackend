@@ -9,8 +9,6 @@ use UltimateBackend\lib\Recordset;
 
 class Demo extends Module
 {
-    private $DB = null;
-
     public function __construct(Template $Tmpl = null)
     {
         parent::__construct($Tmpl);
@@ -22,13 +20,7 @@ class Demo extends Module
             'css' => array("modules/mod_demo/template/demo.css")
         ]);
 
-        $this->DB = DB::getInstance(
-            $this->config['database']['DB_Name'],
-            $this->config['database']['Host'],
-            $this->config['database']['Username'],
-            $this->config['database']['Password'],
-            $this->config['database']['Charset']
-        );
+        $this->DB = DB::getInstance();
     }
 
     public function render($html = "")

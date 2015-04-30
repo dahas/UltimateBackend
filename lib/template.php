@@ -57,24 +57,16 @@ class Template
             return '';
         }
         $html = substr($this->html, $start, $stop - $start);
-        $tmpl = new Template();
+
         $matches = array();
-        if (preg_match('/^([^\<]*\-\-\>)(.*)(\<\!\-\-[^\>]*)$/s', $html, $matches) === 1) {
-            $tmpl->html = $matches[2];
-            return $tmpl;
+        if (preg_match('/^([^\<]*\-\-\>)(.*)(\<\!\-\-[^\>]*)$/s', $html, $matches) === 1 || preg_match('/^([^\<]*\-\-\>)(.*)$/s', $html, $matches) === 1) {
+            return self::html($matches[2]);
         }
         $matches = array();
         if (preg_match('/(.*)(\<\!\-\-[^\>]*)$/s', $html, $matches) === 1) {
-            $tmpl->html = $matches[1];
-            return $tmpl;
+            return self::html($matches[1]);
         }
-        $matches = array();
-        if (preg_match('/^([^\<]*\-\-\>)(.*)$/s', $html, $matches) === 1) {
-            $tmpl->html = $matches[2];
-            return $tmpl;
-        }
-        $tmpl->html = $html;
-        return $tmpl;
+        return self::html($html);
     }
 
     private function replaceMarker($html, $markerArr)
