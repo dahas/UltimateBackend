@@ -22,7 +22,7 @@ class App extends Module
         /*
         * Tools::parseQueryString() creates an array of the URI elements, and filters its values.
         * For security reasons always use the $this->_get member variable instead of directly accessing
-        * any $_GET or $_REQUEST parameter.
+        * any $_GET, $_POST or $_REQUEST parameter.
         * Template::load()lLoads the html file and creates an template object.
         */
         parent::__construct(
