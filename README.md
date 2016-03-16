@@ -1,4 +1,5 @@
-ultimate_backend
-================
+# ultimate_backend
+PHP/MySQL MVC Framework with some components of the DHTMLX suite. A usefull base for complex scalable rich internet applications.
 
-Ultimate Backend
+## Publisher 
+Martin Wolf
